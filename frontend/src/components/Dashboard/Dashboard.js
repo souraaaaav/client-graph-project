@@ -52,19 +52,30 @@ const Dashboard = () => {
 
             });
     };
+    const options = companyData.map((option) => {
+        const firstLetter = option.label[0].toUpperCase();
+        return {
+            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
+            ...option,
+        };
+    });
     return (
         <div className="App">
             <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Stock Ticker Price History</h2>
             <div className='search-component'>
+
                 <Autocomplete
-                    options={companyData}
-                    sx={{ width: 300 }}
-                    renderInput={params => <TextField {...params} label='Ticker' />}
+                    id="grouped-demo"
+                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
+                    groupBy={(option) => option.firstLetter}
+                    getOptionLabel={(option) => option.label}
                     value={company}
                     onChange={(_event, newValue) => {
                         console.log(newValue);
                         setCompany(newValue);
                     }}
+                    sx={{ width: 300 }}
+                    renderInput={(params) => <TextField {...params} label="With categories" />}
                 />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
@@ -92,7 +103,6 @@ const Dashboard = () => {
                     loading === true ? <DashboardLoader /> :
                         data !== null ?
                             <LineChart width={1200} height={600} stockData={data} /> : <p style={{ marginTop: '50px' }}> Select a Ticker</p>
-
                 }
             </div>
         </div>

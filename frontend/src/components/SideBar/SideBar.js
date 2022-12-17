@@ -66,7 +66,7 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                         <span class="tooltip">Dashboard</span>
                     </li>
                     <li>
-                        <Link to='/'>
+                        <Link to='/annual-portfolio'>
                             <i class='bx bx-grid-alt'></i>
                             <span class="links_name">Portfolio</span>
                         </Link>

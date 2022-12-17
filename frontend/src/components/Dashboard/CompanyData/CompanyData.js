@@ -4627,10 +4627,10 @@ export const companyData = [
         "id": "FLNT",
         "label": "Fluent, Inc. "
     },
-    {
-        "id": "FLWS",
-        "label": "1"
-    },
+    // {
+    //     "id": "FLWS",
+    //     "label": "1"
+    // },
     {
         "id": "FLXN",
         "label": "Flexion Therapeutics, Inc. "
@@ -9527,14 +9527,14 @@ export const companyData = [
         "id": "PIE",
         "label": "Invesco DWA Emerging Markets Momentum ETF"
     },
-    {
-        "id": "PIH",
-        "label": "1347 Property Insurance Holdings, Inc. "
-    },
-    {
-        "id": "PIHPP",
-        "label": "1347 Property Insurance Holdings, Inc. "
-    },
+    // {
+    //     "id": "PIH",
+    //     "label": "1347 Property Insurance Holdings, Inc. "
+    // },
+    // {
+    //     "id": "PIHPP",
+    //     "label": "1347 Property Insurance Holdings, Inc. "
+    // },
     {
         "id": "PINC",
         "label": "Premier, Inc. "

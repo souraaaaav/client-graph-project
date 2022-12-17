@@ -3,7 +3,9 @@ import json
 import random
 
 import pandas as pd
+import requests
 import yfinance as yf
+from base.models import User
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
@@ -17,8 +19,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-from base.models import User
 
 from .permissions import isVerifiedUser
 from .serializers import LoginSerializer, UserSerializer, userSignupSerializer
@@ -163,7 +163,6 @@ class stock_ticker_price_history(generics.GenericAPIView):
         ticker = request.data['ticker']
         start_date = request.data['start_date']
         end_date = request.data['end_date']
-
         price_data = yf.download(ticker, start_date, end_date).reset_index()
         start_price = price_data.iloc[0]["Close"]
 

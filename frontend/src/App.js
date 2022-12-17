@@ -14,9 +14,10 @@ import Layout from './hoc/Layout/Layout';
 import ForgetPasswordConfirm from './components/ForgetPassword/ForgetPasswordConfirm/ForgetPasswordConfirm.js';
 import ForgetPasswordStart from './components/ForgetPassword/ForgetPasswordStart/ForgetPasswordStart';
 
+import Dashboard from "./components/Dashboard/Dashboard";
+import PieChartDashboard from "./components/PieChartDashboard/PieChartDashboard";
 import Registration from "./components/Registration/Registration";
 import UserEmailConfirm from "./components/UserEmailConfirm/UserEmailConfirm";
-import Dashboard from "./components/Dashboard/Dashboard";
 
 
 const App = ({ check_continuous_auth }) => {
@@ -29,6 +30,7 @@ const App = ({ check_continuous_auth }) => {
     <Layout>
       <div className="App">
         <Routes>
+          <Route exact path='/annual-portfolio' element={<PieChartDashboard />} />
           <Route exact path='/registration' element={<Registration />} />
           <Route exact path='/user/email-confirm' element={<UserEmailConfirm />} />
           <Route exact path='/login' element={<Login />} />
