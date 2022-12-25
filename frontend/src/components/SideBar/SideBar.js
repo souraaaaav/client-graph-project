@@ -47,11 +47,11 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
 
                 <div class="logo-details">
                     {/* <i class='bx bxl-c-plus-plus icon'></i> */}
-                    <Link to="/" onClick={closeModal}>
-                        <i class='bx bx-receipt icon'></i>
-                    </Link>
-                    <Link to="/" onClick={closeModal}><div class="logo_name">Stock Market <br /> Supervisor</div>
-                    </Link>
+
+                    <i class='bx bx-receipt icon' onClick={closeModal}></i>
+
+                    <div class="logo_name">Stock Market <br /> Supervisor</div>
+
 
                     <i class='bx bx-menu' id="btn" onClick={menuBtnChange} ></i>
 

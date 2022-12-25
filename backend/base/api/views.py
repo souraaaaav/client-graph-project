@@ -510,8 +510,24 @@ def detailPieInfo(request, id):
     detailPie = PieInfo.objects.get(user=user, id=id)
     seriializer = PieSerializer(detailPie, many=False)
     x = json.loads(json.dumps(seriializer.data))
-    print(json.loads(x['dataArr'])[0])
-    return Response(x, status=status.HTTP_200_OK)
+    stock_list = json.loads(x['dataArr'])[0]
+    shares_list = json.loads(x['dataArr'])[1]
+
+    def get_div_yield(ticker, num_of_shares):
+        stock_ticker = yf.Ticker(ticker)
+        div_rate = stock_ticker.info['dividendRate']
+        price = stock_ticker.info['open']
+        if stock_ticker.info['legalType'] == 'Exchange Traded Fund':
+            div_rate = stock_ticker.info['yield'] * price
+        if div_rate != None:
+            annual_div = float(num_of_shares) * div_rate
+        else:
+            annual_div = 0
+        return [ticker, price, div_rate, num_of_shares, annual_div]
+
+    div_yield = map(get_div_yield, stock_list, shares_list)
+    div_list = list(div_yield)
+    return Response({'data': div_list, 'name': x['name']}, status=status.HTTP_200_OK)
 
 
 @api_view(["POST"])
@@ -520,6 +536,17 @@ def savePieInfo(request):
     p = PieInfo.objects.create(
         user=user, name=request.data['name'], dataArr=json.dumps(request.data['dataArr']))
     print('1')
+    p.save()
+    print('2')
+    return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def updatePieInfo(request, id):
+    user = User.objects.get(email=request.data['email'])
+    p = PieInfo.objects.get(user=user, id=id)
+    p.name = request.data['name']
+    p. dataArr = json.dumps(request.data['dataArr'])
     p.save()
     print('2')
     return Response({'success': 'perfect'}, status=status.HTTP_200_OK)

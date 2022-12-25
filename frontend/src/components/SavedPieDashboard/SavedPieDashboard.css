@@ -1,0 +1,25 @@
+/** @format */
+
+.saved-div-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.saved-div {
+    margin-top: 15px;
+    text-align: center;
+    border: 1 px solid;
+    /* border: 1px solid black; */
+    padding: 5px 15px 5px 15px;
+    background: rgb(248, 246, 246);
+    border-radius: 8px;
+}
+
+.saved-div:hover {
+    background: #d1d1d1;
+    cursor: pointer;
+}

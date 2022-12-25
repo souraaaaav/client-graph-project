@@ -22,6 +22,7 @@ import PieChartDashboard from "./components/PieChartDashboard/PieChartDashboard"
 import Registration from "./components/Registration/Registration";
 import UserEmailConfirm from "./components/UserEmailConfirm/UserEmailConfirm";
 import SavedPieDashboard from "./components/SavedPieDashboard/SavedPieDashboard";
+import PieChartDetailDashboard from "./components/PieChartDashboard/PieChartDetailDashboard";
 
 
 const App = ({ check_continuous_auth }) => {
@@ -39,6 +40,7 @@ const App = ({ check_continuous_auth }) => {
           <Route exact path='/growth-of-share' element={<GrowthOfShare />} />
           <Route exact path='/annual-portfolio' element={<PieChartDashboard />} />
           <Route exact path='/saved-pie-dashboard' element={<SavedPieDashboard />} />
+          <Route exact path='/saved-pie-dashboard/:id' element={<PieChartDetailDashboard />} />
           <Route exact path='/registration' element={<Registration />} />
           <Route exact path='/user/email-confirm' element={<UserEmailConfirm />} />
           <Route exact path='/login' element={<Login />} />

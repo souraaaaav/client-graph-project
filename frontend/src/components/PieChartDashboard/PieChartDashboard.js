@@ -66,10 +66,7 @@ const PieChartDashboard = () => {
         handleGraph(arr);
 
     };
-    const handleShare = (e) => {
-        console.log(e.target.value);
-        setShare(e.target.value);
-    };
+
     const handleGraph = (arr) => {
         setLoading(true);
         const ticker_list = [];
@@ -99,11 +96,14 @@ const PieChartDashboard = () => {
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
+
                 setLoading(false);
                 toast.success("successfully got the data");
 
             }).catch(err => {
+
                 setLoading(false);
+
                 toast.error("something went wrong");
 
             });
@@ -148,7 +148,7 @@ const PieChartDashboard = () => {
         series: seriesList,
 
     };
-    console.log('finalsave', [labelList, shareList]);
+    console.log('share', share);
     return (
         <div className="App">
             <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Annual Portfolio Dividend Payment
@@ -168,7 +168,7 @@ const PieChartDashboard = () => {
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Ticker" />}
                 />
-                <TextField id="outlined-basic" label="Share" variant="outlined" value={share} onChange={(e) => handleShare(e)} />
+                <TextField id="outlined-basic" label="Share" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
 
 
 
