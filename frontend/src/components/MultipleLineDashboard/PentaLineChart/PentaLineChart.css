@@ -1,0 +1,62 @@
+/** @format */
+
+.visx-tooltip {
+    z-index: 5;
+}
+
+.tooltip-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    gap: 15px;
+}
+
+.tooltip-text-wrapper {
+    font-weight: 400;
+}
+
+.green-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: green;
+    opacity: 1;
+}
+
+.red-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: red;
+    opacity: 1;
+}
+
+.blue-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: blue;
+    opacity: 1;
+}
+
+.violet-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: violet;
+    opacity: 1;
+}
+
+.orange-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: orange;
+    opacity: 1;
+}

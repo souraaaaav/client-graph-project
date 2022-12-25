@@ -22,11 +22,11 @@ const Registration = ({ create_student_user, isAuthenticated, isLoading, token, 
         create_student_user({ fullname, email, password, password2 });
     };
     if (user) {
-        if (!isAuthenticated && user.is_student && !user.email_validation) {
+        if (isAuthenticated && !user.is_verified) {
             return <Navigate to="/user/email-confirm" />;
         }
-        else if (isAuthenticated && user.is_student && user.email_validation) {
-            return <Navigate to="/dashboard" />;
+        else if (isAuthenticated && user.is_verified) {
+            return <Navigate to="/" />;
         }
     }
     else {
@@ -35,7 +35,7 @@ const Registration = ({ create_student_user, isAuthenticated, isLoading, token, 
                 <p style={{ height: '20px' }}></p>
                 <div class="form-container">
 
-                    <div class="title">Student Registration</div>
+                    <div class="title">Stock Market Supervisor</div>
 
                     <form onSubmit={e => handleSubmit(e)}>
                         <div class="username">
@@ -60,7 +60,7 @@ const Registration = ({ create_student_user, isAuthenticated, isLoading, token, 
                         <div class="password">
                             <i class="fa fa-key"></i>
                             <input class="password-input"
-                                type="text"
+                                type="password"
                                 placeholder="Password"
                                 name='password'
                                 value={password}
@@ -69,7 +69,7 @@ const Registration = ({ create_student_user, isAuthenticated, isLoading, token, 
                         <div class="password">
                             <i class="fa fa-key"></i>
                             <input class="password-input"
-                                type="text"
+                                type="password"
                                 placeholder="Confirm Password"
                                 name='password2'
                                 value={password2}

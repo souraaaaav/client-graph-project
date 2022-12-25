@@ -50,7 +50,7 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                     <Link to="/" onClick={closeModal}>
                         <i class='bx bx-receipt icon'></i>
                     </Link>
-                    <Link to="/" onClick={closeModal}><div class="logo_name">Stock Market Supervisor</div>
+                    <Link to="/" onClick={closeModal}><div class="logo_name">Stock Market <br /> Supervisor</div>
                     </Link>
 
                     <i class='bx bx-menu' id="btn" onClick={menuBtnChange} ></i>
@@ -65,13 +65,27 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                         </Link>
                         <span class="tooltip">Dashboard</span>
                     </li>
-                    <li>
-                        <Link to='/annual-portfolio'>
-                            <i class='bx bx-grid-alt'></i>
-                            <span class="links_name">Portfolio</span>
-                        </Link>
-                        <span class="tooltip">Annual Portfolio</span>
-                    </li>
+                    {isAuthenticated && !user.isVerified ?
+                        <>
+                            <>
+                                <li>
+                                    <Link to="/user/email-confirm">
+                                        <i class='bx bxs-user' ></i>
+                                        <span class="links_name" onClick={closeModal}>Confirm email</span>
+
+                                    </Link>
+                                    <span class="tooltip">Confirm email</span>
+                                </li>
+                                <li>
+                                    <Link to="">
+                                        <i class='bx bx-log-out' id="log_out" onClick={(e) => handleLogout(e)} ></i>
+                                        <span class="links_name" onClick={handleLogout}>Log out</span>
+                                    </Link>
+                                    <span class="tooltip">Log out</span>
+                                </li>
+                            </>
+                        </>
+                        : null}
                     {(!token && !isAuthenticated) ?
                         <>
                             <li>
@@ -95,6 +109,41 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                     {token && isAuthenticated && user.isVerified ?
                         <>
 
+                            <li>
+                                <Link to='/annual-portfolio'>
+                                    <i class='bx bxs-buildings' ></i>
+                                    <span class="links_name">Portfolio</span>
+                                </Link>
+                                <span class="tooltip">Annual Portfolio</span>
+                            </li>
+                            <li>
+                                <Link to='/stock-ticker-comparison'>
+                                    <i class='bx bxs-bank'></i>
+                                    <span class="links_name">Stock ticker</span>
+                                </Link>
+                                <span class="tooltip">Stock ticker</span>
+                            </li>
+                            <li>
+                                <Link to='/investment-growth'>
+                                    <i class='bx bxs-credit-card-front' ></i>
+                                    <span class="links_name">Investment Growth</span>
+                                </Link>
+                                <span class="tooltip">Investment Growth</span>
+                            </li>
+                            <li>
+                                <Link to='/growth-of-share'>
+                                    <i class='bx bxs-notepad'></i>
+                                    <span class="links_name">Growth of Share</span>
+                                </Link>
+                                <span class="tooltip">Growth of Share</span>
+                            </li>
+                            <li>
+                                <Link to='/saved-pie-dashboard'>
+                                    <i class='bx bxs-save'></i>
+                                    <span class="links_name">Saved profile</span>
+                                </Link>
+                                <span class="tooltip">Saved Profile</span>
+                            </li>
 
                             <li class="profile">
                                 <div class="profile-details">

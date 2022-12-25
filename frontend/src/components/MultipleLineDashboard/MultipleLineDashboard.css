@@ -1,0 +1,20 @@
+/** @format */
+
+.search-component {
+    width: 1200px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 40px;
+    padding: 20px;
+    border: 1px solid grey;
+    background: #ececec;
+    box-shadow: 5px 5px 5px #d8d8d8;
+}
+
+.Linechart-wrapper {
+    text-align: center;
+}

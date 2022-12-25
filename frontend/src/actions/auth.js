@@ -11,17 +11,19 @@ export const create_student_user = ({ fullname, email, password, password2 }) =>
     };
     const body = JSON.stringify({ fullname, email, password, password2 });
     console.log('inside');
-    axios.post('http://localhost:8000/api/signup/student/', body, config)
+    axios.post('http://localhost:8000/api/signup/user/', body, config)
         .then(res => {
             dispatch({
                 type: actionTypes.REGISTER_STUDENT_USER_SUCCESS,
                 payload: res.data
             });
+            toast.success('confirm your account from mail');
             console.log(res.data);
         }).catch(err => {
             dispatch({
                 type: actionTypes.REGISTER_STUDENT_USER_FAILED
             });
+            toast.error('something went wrong');
             console.log(err.response.data);
         });
 
@@ -29,6 +31,7 @@ export const create_student_user = ({ fullname, email, password, password2 }) =>
 
 export const forget_password = ({ email }) => (dispatch) => {
     dispatch({ type: actionTypes.LOADING_START });
+    localStorage.setItem('userEmail', email);
     const config = {
         headers: {
             'Content-Type': 'application/json',
@@ -50,25 +53,28 @@ export const forget_password = ({ email }) => (dispatch) => {
             dispatch({
                 type: actionTypes.PASSWORD_CHANGE_REQUEST_FAILED
             });
+            localStorage.removeItem('userEmail');
             toast.error("please enter correct email address", err);
             console.log("i am here", err);
         });
 };
 
-export const forget_password_confirm = ({ token, password }) => (dispatch) => {
+export const forget_password_confirm = ({ token, password1, password2 }) => (dispatch) => {
     dispatch({ type: actionTypes.LOADING_START });
+    const userEmail = localStorage.getItem('userEmail');
     const config = {
         headers: {
             'Content-Type': 'application/json',
         }
     };
-    const body = JSON.stringify({ token, password });
+    const body = JSON.stringify({ 'email': userEmail, 'token': token, 'password1': password1, 'password2': password2 });
     axios.post('http://localhost:8000/api/password-change-confirm/', body, config)
         .then(response => {
             dispatch({
                 type: actionTypes.PASSWORD_CHANGE_CONFIRM_REQUEST_SUCCESS,
                 payload: response.data
             });
+            localStorage.removeItem('userEmail');
             toast.success("successfully changed the password");
         }).catch(err => {
             dispatch({

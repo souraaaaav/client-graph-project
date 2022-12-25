@@ -46,3 +46,12 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class PieInfo(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=80)
+    dataArr = models.TextField()
+
+    def __str__(self):
+        return self.name

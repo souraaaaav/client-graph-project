@@ -3,3 +3,12 @@
 .visx-tooltip {
     z-index: 5;
 }
+
+.unknown-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid;
+    background-color: #6873fa;
+    opacity: 1;
+}

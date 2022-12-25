@@ -23,7 +23,7 @@ const Login = ({ login, isAuthenticated, isLoading, token, user }) => {
         login({ email, password });
     };
     if (isAuthenticated && user && user.isVerified) {
-        return <Navigate to="/dashboard" />;
+        return <Navigate to="/" />;
     }
     else if (isAuthenticated && user && !user.isVerified) {
         return <Navigate to="/user/email-confirm" />;
