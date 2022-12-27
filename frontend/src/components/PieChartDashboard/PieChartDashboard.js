@@ -68,6 +68,10 @@ const PieChartDashboard = () => {
     };
 
     const handleGraph = (arr) => {
+        if (company === null || share === null) {
+            toast.warning('please fill all the value');
+            return;
+        }
         setLoading(true);
         const ticker_list = [];
         const share_list = [];
@@ -110,6 +114,12 @@ const PieChartDashboard = () => {
 
     };
     const handleSave = () => {
+        if (labelList.length === 0 || shareList.length === 0) {
+            toast.warning('please fill all the value');
+            handleClose();
+
+            return;
+        }
         handleClose();
         setLoading(true);
 

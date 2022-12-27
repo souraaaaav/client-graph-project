@@ -23,8 +23,11 @@ const MultipleLineDashboard = () => {
 
 
 
-
     const handleSearch = () => {
+        if (year === null || investment === null || growthRate === null || addContrib === null || contribRate === null) {
+            toast.warning('please fill all the value');
+            return;
+        }
         if (year > 25) {
             toast.warning('Please select from 1-25 years');
             return;

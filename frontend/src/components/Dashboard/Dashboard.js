@@ -42,6 +42,10 @@ const Dashboard = () => {
     };
 
     const handleSearch = () => {
+        if (company === null || startDate.length === 0 || endDate.length === 0) {
+            toast.warning('please fill all the value');
+            return;
+        }
         setLoading(true);
         setData(null);
         const config = {

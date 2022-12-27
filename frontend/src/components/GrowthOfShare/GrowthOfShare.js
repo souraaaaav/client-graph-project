@@ -21,12 +21,17 @@ const GrowthOfShare = () => {
 
 
 
-
     const handleSearch = () => {
+        if (year === null || annualDiv === null || growthRate === null || divYeild === null || iniPrice === null || iniShare === null) {
+            toast.warning('please fill all the value');
+            return;
+        }
+
         if (year > 50) {
             toast.warning('Please select from 1-50 years');
             return;
         }
+
         setLoading(true);
         setData(null);
 
