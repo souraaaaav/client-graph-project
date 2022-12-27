@@ -28,13 +28,13 @@ const LineChart = ({ width, height, stockData }) => {
                 orientation='bottom'
                 numTicks={10}
                 tickFormat={(v) => format(parseISO(v), ' MMM yyyy')}
-                label='Time'
+                label='Date'
             />
             <Axis
                 orientation='left'
                 numTicks={10}
 
-                label='Stock Price'
+                label='Stock Price ($)'
             />
 
             <LineSeries

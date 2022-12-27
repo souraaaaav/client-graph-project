@@ -533,6 +533,9 @@ def detailPieInfo(request, id):
 @api_view(["POST"])
 def savePieInfo(request):
     user = User.objects.get(email=request.data['email'])
+    test = PieInfo.objects.filter(user=user)
+    if len(test) >= 5:
+        return Response({'overflow': True}, status=status.HTTP_200_OK)
     p = PieInfo.objects.create(
         user=user, name=request.data['name'], dataArr=json.dumps(request.data['dataArr']))
     print('1')
@@ -549,4 +552,12 @@ def updatePieInfo(request, id):
     p. dataArr = json.dumps(request.data['dataArr'])
     p.save()
     print('2')
+    return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def deletePieinfo(request, id):
+    user = User.objects.get(email=request.data['email'])
+    p = PieInfo.objects.get(user=user, id=id)
+    p.delete()
     return Response({'success': 'perfect'}, status=status.HTTP_200_OK)

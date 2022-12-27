@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 import { companyData } from '../Dashboard/CompanyData/CompanyData';
 import DashboardLoader from '../Dashboard/DashboardLoader/DashboardLoader';
 import './PieChartDashboard.css';
+import { useNavigate } from "react-router-dom";
+
 
 import { useParams } from 'react-router-dom';
 
@@ -32,6 +34,7 @@ const style = {
 const PieChartDetailDashboard = () => {
     const user = useSelector(state => state.auth.user);
     const params = useParams();
+    const navigate = useNavigate();
 
     const [company, setCompany] = useState(null);
     const [share, setShare] = useState(null);
@@ -186,6 +189,29 @@ const PieChartDetailDashboard = () => {
             });
 
     };
+    const handleDelete = () => {
+        setBigLoading(true);
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        const body = JSON.stringify({ 'email': user.email });
+
+        axios.post(`http://localhost:8000/api/delete-pie/${params.id}/`, body, config)
+            .then(response => {
+                setBigLoading(false);
+                toast.success("successfully deleted the pie chart");
+                navigate(`/saved-pie-dashboard`);
+            })
+            .catch(err => {
+                setBigLoading(false);
+                toast.error("something went wrong in deleting");
+                console.log(err);
+
+            });
+    };
     const config = {
         options: {
             labels: labelList,
@@ -203,7 +229,7 @@ const PieChartDetailDashboard = () => {
     console.log('share', share);
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Annual Portfolio Dividend Payment
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Annual Portfolio Dividends
             </h2>
             {bigLoading ? <HashLoader speedMultiplier={1.5} color={'#262626'} style={{ marginLeft: "50%" }} size={100} /> :
                 <>
@@ -222,13 +248,14 @@ const PieChartDetailDashboard = () => {
                             sx={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label="Ticker" />}
                         />
-                        <TextField id="outlined-basic" label="Share" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
+                        <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
 
 
 
-                        <Button variant="contained" onClick={handleAddList}>Add to List</Button>
-                        <Button variant="contained" onClick={handleRemoveLast}>Remove last</Button>
-                        <Button variant="contained" onClick={handleOpen}>Update PieChart</Button>
+                        <Button variant="contained" className='dashboard-button' onClick={handleAddList}>Add to List</Button>
+                        <Button variant="contained" className='dashboard-button' onClick={handleRemoveLast}>Remove last</Button>
+                        <Button variant="contained" className='dashboard-button' onClick={handleOpen}>Update Table</Button>
+                        <Button variant="contained" className='dashboard-button' onClick={handleDelete}>Delete Table</Button>
 
                     </div>
                     <Modal
@@ -242,7 +269,7 @@ const PieChartDetailDashboard = () => {
                                 <TextField sx={{ width: 500, marginBottom: 5 }} id="outlined-basic" label="Name of PieChart" variant="outlined" value={pieName} onChange={(e) => setPieName(e.target.value)} />
                             </Box>
                             <Box textAlign='center'>
-                                <Button variant="contained" onClick={handleSave}>Updat</Button>
+                                <Button variant="contained" onClick={handleSave}>Update</Button>
                             </Box>
 
                         </Box>

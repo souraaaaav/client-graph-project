@@ -54,37 +54,43 @@ const GrowthOfShare = () => {
 
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Stock Ticker Price History</h2>
-            <div className='search-component'>
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Periodic Contribution Investment Growth</h2>
+            <div className='search-component investment-wrapper'>
+                <div className='investment-outer-wrapper' style={{ width: '720px' }}>
+                    <div className='investment-inner-wrapper'>
 
-                <TextField id="outlined-basic" label="Initial Share" variant="outlined" value={iniShare} onChange={(e) => {
-                    setIniShare(e.target.value);
-                }} />
+                        <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={iniShare} onChange={(e) => {
+                            setIniShare(e.target.value);
+                        }} />
 
-                <TextField id="outlined-basic" label="Share Price" variant="outlined" value={iniPrice} onChange={(e) => {
-                    setIniPrice(e.target.value);
-                }} />
+                        <TextField id="outlined-basic" label="Share Price" variant="outlined" value={iniPrice} onChange={(e) => {
+                            setIniPrice(e.target.value);
+                        }} />
 
-                <TextField id="outlined-basic" label="Annual Growth Rate" variant="outlined" value={growthRate} onChange={(e) => {
-                    setGrowthRate(e.target.value);
-                }} />
+                        <TextField id="outlined-basic" label="Annual Growth Rate" variant="outlined" value={growthRate} onChange={(e) => {
+                            setGrowthRate(e.target.value);
+                        }} />
+                    </div>
+                    <div className='investment-inner-wrapper'>
 
-                <TextField id="outlined-basic" label="Div Yield" variant="outlined" value={divYeild} onChange={(e) => {
-                    setDivYeild(e.target.value);
-                }} />
-                <TextField id="outlined-basic" label="Annual Div Growth Rate" variant="outlined" value={annualDiv} onChange={(e) => {
-                    setAnnualDiv(e.target.value);
-                }} />
-                <TextField id="outlined-basic" label="Year" variant="outlined" value={year} onChange={(e) => {
-                    setYear(e.target.value);
-                }} />
-                <Button variant="contained" onClick={handleSearch}>Create Table</Button>
+                        <TextField id="outlined-basic" label="Div. Yield" variant="outlined" value={divYeild} onChange={(e) => {
+                            setDivYeild(e.target.value);
+                        }} />
+                        <TextField id="outlined-basic" label="Annual Div. Growth Rate" variant="outlined" value={annualDiv} onChange={(e) => {
+                            setAnnualDiv(e.target.value);
+                        }} />
+                        <TextField id="outlined-basic" label="# of Years" variant="outlined" value={year} onChange={(e) => {
+                            setYear(e.target.value);
+                        }} />
+                    </div>
+                </div>
+                <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Table</Button>
             </div>
             <div className='chart-wrapper'>
                 {
                     loading === true ? <DashboardLoader /> :
                         data !== null ? <GrowthOfShareTable data={data} /> :
-                            <p style={{ marginTop: '50px' }}> Select a Ticker</p>
+                            null
                 }
             </div>
         </div>

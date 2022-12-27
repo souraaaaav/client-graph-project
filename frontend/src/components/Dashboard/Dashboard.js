@@ -22,7 +22,7 @@ const Dashboard = () => {
     const [company, setCompany] = useState(null);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [drip, setDrip] = useState(false);
+    const [drip, setDrip] = useState(true);
 
     const handleStartChange = (newValue) => {
 
@@ -71,7 +71,7 @@ const Dashboard = () => {
 
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Stock Ticker Price History</h2>
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Stock Ticker Price History</h2>
             <div className='search-component'>
 
                 <Autocomplete
@@ -119,7 +119,7 @@ const Dashboard = () => {
                         <MenuItem value={true}>True</MenuItem>
                     </Select>
                 </FormControl>
-                <Button variant="contained" onClick={handleSearch}>Create Graph</Button>
+                <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Graph</Button>
             </div>
             <div className='Linechart-wrapper'>
                 {

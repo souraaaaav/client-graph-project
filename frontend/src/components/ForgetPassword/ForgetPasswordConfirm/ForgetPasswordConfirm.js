@@ -51,7 +51,7 @@ const ForgetPasswordConfirm = ({ forget_password_confirm, isAuthenticated, isLoa
                             <input type="text"
                                 className="name-input"
                                 onChange={e => loginChange(e)}
-                                placeholder="enter the token"
+                                placeholder="Enter the Token"
                                 name="token"
                                 value={token}
                             />
@@ -72,11 +72,11 @@ const ForgetPasswordConfirm = ({ forget_password_confirm, isAuthenticated, isLoa
                                 className="password-input"
                                 type="password"
                                 onChange={e => loginChange(e)}
-                                placeholder="Confirm password"
+                                placeholder="Confirm Password"
                                 name="password2" value={password2}
                             />
                         </div>
-                        <input type="submit" value="submit" className="submit-input" />
+                        <input type="submit" value="Submit" className="submit-input" />
 
                     </form>
 

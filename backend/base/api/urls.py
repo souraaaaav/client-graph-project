@@ -25,6 +25,7 @@ urlpatterns = [
     path('detail-pie-info/<int:id>/', views.detailPieInfo),
     path('save-pie/', views.savePieInfo),
     path('update-pie/<int:id>/', views.updatePieInfo),
+    path('delete-pie/<int:id>/', views.deletePieinfo),
 
 
 ]

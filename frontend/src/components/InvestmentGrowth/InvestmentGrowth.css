@@ -21,3 +21,21 @@
     margin-right: auto;
     width: 1200px;
 }
+
+.search-component.investment-wrapper {
+    flex-direction: row;
+    width: 900px;
+}
+
+.investment-outer-wrapper {
+    display: flex;
+    width: 700px;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.investment-inner-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

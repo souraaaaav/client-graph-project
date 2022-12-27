@@ -37,7 +37,7 @@ td {
 }
 
 .content-table thead tr {
-    background-color: #11101d;
+    background-color: #646464;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -57,10 +57,18 @@ td {
 }
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #11101d;
+    border-bottom: 2px solid #646464;
 }
 
 .content-table tbody tr.active-row {
     font-weight: bold;
     color: #009879;
+}
+
+.dashboard-button {
+    background-color: #646464 !important;
+}
+
+.dashboard-button:hover {
+    background-color: #212121 !important;
 }

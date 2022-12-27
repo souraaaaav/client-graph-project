@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
 import { logout } from '../../actions/auth';
 import testImage from '../../assets/images/iit.jfif';
@@ -59,28 +59,59 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
 
                 <ul class="nav-list">
                     <li>
-                        <Link to='/'>
+                        <NavLink activeClassName="activeLink" to='/'>
                             <i class='bx bx-grid-alt'></i>
-                            <span class="links_name">Dashboard</span>
-                        </Link>
-                        <span class="tooltip">Dashboard</span>
+                            <span class="links_name">Price History</span>
+                        </NavLink>
+                        <span class="tooltip">Price History</span>
                     </li>
+
+                    <li>
+                        <NavLink activeClassName="activeLink" to='/annual-portfolio'>
+                            <i class='bx bxs-buildings' ></i>
+                            <span class="links_name">Dividend Portfolio</span>
+                        </NavLink>
+                        <span class="tooltip">Dividend Portfolio</span>
+                    </li>
+                    <li>
+                        <NavLink activeClassName="activeLink" to='/stock-ticker-comparison'>
+                            <i class='bx bxs-bank'></i>
+                            <span class="links_name">Hypothetical Growth</span>
+                        </NavLink>
+                        <span class="tooltip">Hypothetical Growth</span>
+                    </li>
+                    <li>
+                        <NavLink activeClassName="activeLink" to='/investment-growth'>
+                            <i class='bx bxs-credit-card-front' ></i>
+                            <span class="links_name">Periodic Contribution</span>
+                        </NavLink>
+                        <span class="tooltip">Periodic Contribution</span>
+                    </li>
+                    <li>
+                        <NavLink activeClassName="activeLink" to='/growth-of-share'>
+                            <i class='bx bxs-notepad'></i>
+                            <span class="links_name">Growth of Share</span>
+                        </NavLink>
+                        <span class="tooltip">Growth of Share</span>
+                    </li>
+
+
                     {isAuthenticated && !user.isVerified ?
                         <>
                             <>
                                 <li>
-                                    <Link to="/user/email-confirm">
+                                    <NavLink activeClassName="activeLink" to="/user/email-confirm">
                                         <i class='bx bxs-user' ></i>
                                         <span class="links_name" onClick={closeModal}>Confirm email</span>
 
-                                    </Link>
+                                    </NavLink>
                                     <span class="tooltip">Confirm email</span>
                                 </li>
                                 <li>
-                                    <Link to="">
+                                    <NavLink to="">
                                         <i class='bx bx-log-out' id="log_out" onClick={(e) => handleLogout(e)} ></i>
                                         <span class="links_name" onClick={handleLogout}>Log out</span>
-                                    </Link>
+                                    </NavLink>
                                     <span class="tooltip">Log out</span>
                                 </li>
                             </>
@@ -89,60 +120,31 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                     {(!token && !isAuthenticated) ?
                         <>
                             <li>
-                                <Link to="/login">
+                                <NavLink activeClassName="activeLink" to="/login">
                                     <i class='bx bxs-user' ></i>
                                     <span class="links_name" onClick={closeModal}>Log in</span>
 
-                                </Link>
-                                <span class="tooltip">Log in</span>
+                                </NavLink>
+                                <span class="tooltip">Log In</span>
                             </li>
                             <li>
-                                <Link to="/registration">
+                                <NavLink activeClassName="activeLink" to="/registration">
                                     <i class='bx bxs-user-plus' ></i>
-                                    <span class="links_name" onClick={closeModal}>Registration</span>
-                                </Link>
-                                <span class="tooltip">Registration</span>
+                                    <span class="links_name" onClick={closeModal}>Create Account</span>
+                                </NavLink>
+                                <span class="tooltip">Create Account</span>
                             </li>
                         </>
                         : null}
 
                     {token && isAuthenticated && user.isVerified ?
                         <>
-
                             <li>
-                                <Link to='/annual-portfolio'>
-                                    <i class='bx bxs-buildings' ></i>
-                                    <span class="links_name">Portfolio</span>
-                                </Link>
-                                <span class="tooltip">Annual Portfolio</span>
-                            </li>
-                            <li>
-                                <Link to='/stock-ticker-comparison'>
-                                    <i class='bx bxs-bank'></i>
-                                    <span class="links_name">Stock ticker</span>
-                                </Link>
-                                <span class="tooltip">Stock ticker</span>
-                            </li>
-                            <li>
-                                <Link to='/investment-growth'>
-                                    <i class='bx bxs-credit-card-front' ></i>
-                                    <span class="links_name">Investment Growth</span>
-                                </Link>
-                                <span class="tooltip">Investment Growth</span>
-                            </li>
-                            <li>
-                                <Link to='/growth-of-share'>
-                                    <i class='bx bxs-notepad'></i>
-                                    <span class="links_name">Growth of Share</span>
-                                </Link>
-                                <span class="tooltip">Growth of Share</span>
-                            </li>
-                            <li>
-                                <Link to='/saved-pie-dashboard'>
+                                <NavLink activeClassName="activeLink" to='/saved-pie-dashboard'>
                                     <i class='bx bxs-save'></i>
-                                    <span class="links_name">Saved profile</span>
-                                </Link>
-                                <span class="tooltip">Saved Profile</span>
+                                    <span class="links_name">Saved Tables</span>
+                                </NavLink>
+                                <span class="tooltip">Saved Tables</span>
                             </li>
 
                             <li class="profile">

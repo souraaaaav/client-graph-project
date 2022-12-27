@@ -56,44 +56,53 @@ const MultipleLineDashboard = () => {
 
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Stock Ticker Price History</h2>
-            <div className='search-component'>
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Growth of Shares with DRIP</h2>
+            <div className='search-component investment-wrapper'>
+                <div className='investment-outer-wrapper'>
+                    <div className='investment-inner-wrapper'>
+                        <TextField id="outlined-basic" label="Initial Investment($)" variant="outlined" value={investment} onChange={(e) => {
+                            setInvestment(e.target.value);
+                        }} />
+                        <TextField id="outlined-basic" label="Annual Growth Rate" variant="outlined" value={growthRate} onChange={(e) => {
+                            setGrowthRate(e.target.value);
+                        }} />
+                        <TextField id="outlined-basic" label="Additional Contribution" variant="outlined" value={addContrib} onChange={(e) => {
+                            setAddContrib(e.target.value);
+                        }} />
+                    </div>
+                    <div className='investment-inner-wrapper'>
 
-                <TextField id="outlined-basic" label="Initial Investment($)" variant="outlined" value={investment} onChange={(e) => {
-                    setInvestment(e.target.value);
-                }} />
-                <TextField id="outlined-basic" label="Annual Growth Rate" variant="outlined" value={growthRate} onChange={(e) => {
-                    setGrowthRate(e.target.value);
-                }} />
-                <TextField id="outlined-basic" label="Additional Contribution" variant="outlined" value={addContrib} onChange={(e) => {
-                    setAddContrib(e.target.value);
-                }} />
-                <FormControl sx={{ minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-autowidth-label">Contribution Rate</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-autowidth-label"
-                        id="demo-simple-select-autowidth"
-                        value={contribRate}
-                        label="Contribution Rate"
-                        onChange={(e) => { console.log(e.target.value); setContribRate(e.target.value); }}
-                    >
-                        <MenuItem value="annual">annual</MenuItem>
-                        <MenuItem value="semi-annual">semi-annual</MenuItem>
-                        <MenuItem value="monthly">monthly</MenuItem>
-                        <MenuItem value="bi-weekly">bi-weekly</MenuItem>
-                        <MenuItem value="weekly">weekly</MenuItem>
-                    </Select>
-                </FormControl>
-                <TextField id="outlined-basic" label="Year" variant="outlined" value={year} onChange={(e) => {
-                    setYear(e.target.value);
-                }} />
-                <Button variant="contained" onClick={handleSearch}>Create Graph</Button>
+
+                        <FormControl sx={{ minWidth: 270 }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">Contribution Rate</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                value={contribRate}
+                                label="Contribution Rate"
+                                onChange={(e) => { console.log(e.target.value); setContribRate(e.target.value); }}
+                            >
+                                <MenuItem value="annual">annual</MenuItem>
+                                <MenuItem value="semi-annual">semi-annual</MenuItem>
+                                <MenuItem value="monthly">monthly</MenuItem>
+                                <MenuItem value="bi-weekly">bi-weekly</MenuItem>
+                                <MenuItem value="weekly">weekly</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField sx={{ minWidth: 270 }} id="outlined-basic" label="# of Years" variant="outlined" value={year} onChange={(e) => {
+                            setYear(e.target.value);
+                        }} />
+                    </div>
+                </div>
+                <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Graph</Button>
+
             </div>
+
             <div className='stack-chart-wrapper'>
                 {
                     loading === true ? <DashboardLoader /> :
                         data !== null ? <InvestmentGrowthChart data={data} /> :
-                            <p style={{ marginTop: '50px' }}> Select a Ticker</p>
+                            null
                 }
             </div>
         </div>

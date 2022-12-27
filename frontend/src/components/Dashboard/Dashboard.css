@@ -18,3 +18,11 @@
 .Linechart-wrapper {
     text-align: center;
 }
+
+.dashboard-button {
+    background-color: #646464 !important;
+}
+
+.dashboard-button:hover {
+    background-color: #212121 !important;
+}

@@ -123,7 +123,9 @@ const PieChartDashboard = () => {
         axios.post('http://localhost:8000/api/save-pie/', body, config)
             .then(response => {
                 setLoading(false);
-                toast.success("successfully Saved the pie chart");
+                response.data.overflow ?
+                    toast.warn("you have already saved 5 graph ") :
+                    toast.success("successfully Saved the pie chart");
                 console.log(response.data);
             })
             .catch(err => {
@@ -151,7 +153,7 @@ const PieChartDashboard = () => {
     console.log('share', share);
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Annual Portfolio Dividend Payment
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Annual Portfolio Dividends
             </h2>
             <div className='search-component'>
 
@@ -168,13 +170,15 @@ const PieChartDashboard = () => {
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Ticker" />}
                 />
-                <TextField id="outlined-basic" label="Share" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
+                <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
 
 
 
-                <Button variant="contained" onClick={handleAddList}>Add to List</Button>
-                <Button variant="contained" onClick={handleRemoveLast}>Remove last</Button>
-                <Button variant="contained" onClick={handleOpen}>Save PieChart</Button>
+                <Button variant="contained" className='dashboard-button' onClick={handleAddList}>Add to List</Button>
+                <Button variant="contained" className='dashboard-button' onClick={handleRemoveLast}>Remove last</Button>
+                {user &&
+                    <Button variant="contained" className='dashboard-button' onClick={handleOpen}>Save PieChart</Button>
+                }
 
             </div>
             <Modal
@@ -219,14 +223,14 @@ const PieChartDashboard = () => {
                                     <td>{el[4] ? el[4].toFixed(2) : 'none'}</td>
                                 </tr>
                             ))
-                            : <tr><td colSpan="5">select a valid ticker</td></tr>}
+                            : <tr><td colSpan="5">Select a Ticker</td></tr>}
                     </tbody>
                 </table>
                 {
                     loading === true ? <DashboardLoader /> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ? <div>
                         <Chart options={config.options} series={config.series} type="pie" width="380" />
 
-                    </div> : <p>select a valid ticker</p>
+                    </div> : <p>Select a Ticker</p>
 
                 }
 

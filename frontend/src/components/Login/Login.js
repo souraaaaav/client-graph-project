@@ -59,9 +59,9 @@ const Login = ({ login, isAuthenticated, isLoading, token, user }) => {
                                 name="password" value={password}
                             />
                         </div>
-                        <input type="submit" value="Login" className="submit-input" />
+                        <input type="submit" value="Log In" className="submit-input" />
                         <Link to="/forget-password">
-                            <p style={{ 'textAlign': 'center', 'marginTop': '15px' }}>Forgotten Password / First time?</p>
+                            <p style={{ 'textAlign': 'center', 'marginTop': '15px' }}>Forgotten Password ?</p>
                         </Link>
                         {/* <Link to="/registration">
                             <input type="submit" value="Create Account" id="submit-registration" />

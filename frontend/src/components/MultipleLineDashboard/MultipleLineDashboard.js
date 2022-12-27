@@ -24,7 +24,7 @@ const MultipleLineDashboard = () => {
     const [data, setData] = useState(null);
     const [tickerSeries, setTickerSeries] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [drip, setDrip] = useState(false);
+    const [drip, setDrip] = useState(true);
     const [company, setCompany] = useState(null);
     const [investment, setInvestment] = useState(null);
     const [startDate, setStartDate] = useState("");
@@ -84,7 +84,7 @@ const MultipleLineDashboard = () => {
     console.log(company);
     return (
         <div className="App">
-            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center' }}>Stock Ticker Price History</h2>
+            <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Hypothetical Growth of Tickers</h2>
             <div className='search-component'>
 
                 <Autocomplete
@@ -124,7 +124,7 @@ const MultipleLineDashboard = () => {
                         renderInput={(params) => <TextField {...params} />}
                     />
                 </LocalizationProvider>
-                <TextField id="outlined-basic" label="Investment($)" variant="outlined" value={investment} onChange={(e) => {
+                <TextField id="outlined-basic" label="Investment ($)" variant="outlined" value={investment} onChange={(e) => {
                     console.log(e.target.value); setInvestment(e.target.value);
                 }} />
 
@@ -141,7 +141,7 @@ const MultipleLineDashboard = () => {
                         <MenuItem value={true}>True</MenuItem>
                     </Select>
                 </FormControl>
-                <Button variant="contained" onClick={handleSearch}>Create Graph</Button>
+                <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Graph</Button>
             </div>
             <div className='Linechart-wrapper'>
                 {
