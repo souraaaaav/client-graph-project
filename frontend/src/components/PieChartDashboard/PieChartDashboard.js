@@ -1,4 +1,3 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -51,18 +50,14 @@ const PieChartDashboard = () => {
     });
     const handleAddList = () => {
         let arr = [...tickerList];
-
         arr.push({ 'company': company, 'share': share });
-
         console.log(arr);
-        setTickerList(arr);
         handleGraph(arr);
 
     };
     const handleRemoveLast = () => {
         let arr = [...tickerList];
         arr.pop();
-        setTickerList(arr);
         handleGraph(arr);
 
     };
@@ -76,7 +71,7 @@ const PieChartDashboard = () => {
         const ticker_list = [];
         const share_list = [];
         arr.forEach((el, i) => {
-            ticker_list.push(el.company.id);
+            ticker_list.push(el.company);
             share_list.push(el.share);
         });
         console.log('ticker', ticker_list, share_list);
@@ -100,7 +95,7 @@ const PieChartDashboard = () => {
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
-
+                setTickerList(arr);
                 setLoading(false);
                 toast.success("successfully got the data");
 
@@ -108,7 +103,11 @@ const PieChartDashboard = () => {
 
                 setLoading(false);
 
-                toast.error("something went wrong");
+                if (err.response.data.unavailable) {
+                    toast.error("please type a valid ticker");
+                }
+                else
+                    toast.error("something went wrong");
 
             });
 
@@ -167,19 +166,10 @@ const PieChartDashboard = () => {
             </h2>
             <div className='search-component'>
 
-                <Autocomplete
-                    id="grouped-demo"
-                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                    groupBy={(option) => option.firstLetter}
-                    getOptionLabel={(option) => option.label}
-                    value={company}
-                    onChange={(_event, newValue) => {
-                        console.log(newValue);
-                        setCompany(newValue);
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Ticker" />}
-                />
+                <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker" variant="outlined" value={company} onChange={(e) => {
+                    setCompany(e.target.value.toUpperCase());
+                }} />
+
                 <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
 
 

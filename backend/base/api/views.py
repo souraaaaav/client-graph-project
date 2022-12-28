@@ -163,61 +163,65 @@ class continuousVerificationView(generics.RetrieveAPIView):
 class stock_ticker_price_history(generics.GenericAPIView):
 
     def post(self, request,):
-        ticker = request.data['ticker']
-        start_date = request.data['start_date']
-        end_date = request.data['end_date']
-        drip = request.data['drip']
-        if drip == True:
-            price_data = yf.download(
-                ticker, start_date, end_date).reset_index()
+        try:
+            ticker = request.data['ticker']
+            start_date = request.data['start_date']
+            end_date = request.data['end_date']
+            drip = request.data['drip']
+            if drip == True:
+                price_data = yf.download(
+                    ticker, start_date, end_date).reset_index()
 
-            start_price = price_data.iloc[0]["Adj Close"]
-            end_price = price_data.iloc[-1]["Adj Close"]
+                start_price = price_data.iloc[0]["Adj Close"]
+                end_price = price_data.iloc[-1]["Adj Close"]
 
-            df_start_dt = pd.to_datetime(price_data.iloc[0]["Date"])
-            df_end_dt = pd.to_datetime(price_data.iloc[-1]["Date"])
-            day_count = (df_end_dt - df_start_dt).days
+                df_start_dt = pd.to_datetime(price_data.iloc[0]["Date"])
+                df_end_dt = pd.to_datetime(price_data.iloc[-1]["Date"])
+                day_count = (df_end_dt - df_start_dt).days
 
-            simple_return = (end_price - start_price) / start_price
-            annual_return = (simple_return + 1) ** (1 /
-                                                    (day_count / 365.242199)) - 1
-            price_data["% Change"] = price_data["Adj Close"].apply(
-                lambda x: round(((x / start_price) - 1) * 100, 2))
-            price_data["Return"] = price_data["Adj Close"].apply(
-                lambda x: round(x - start_price, 2))
-            final_list = []
-            for i in range(0, len(price_data)):
+                simple_return = (end_price - start_price) / start_price
+                annual_return = (simple_return + 1) ** (1 /
+                                                        (day_count / 365.242199)) - 1
+                price_data["% Change"] = price_data["Adj Close"].apply(
+                    lambda x: round(((x / start_price) - 1) * 100, 2))
+                price_data["Return"] = price_data["Adj Close"].apply(
+                    lambda x: round(x - start_price, 2))
+                final_list = []
+                for i in range(0, len(price_data)):
 
-                final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
-                    "%m/%d/%Y")), 'y': price_data["Adj Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
+                    final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
+                        "%m/%d/%Y")), 'y': price_data["Adj Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
 
-            return Response(final_list, status=status.HTTP_200_OK)
-        else:
-            price_data = yf.download(
-                ticker, start_date, end_date).reset_index()
+                return Response(final_list, status=status.HTTP_200_OK)
+            else:
+                price_data = yf.download(
+                    ticker, start_date, end_date).reset_index()
 
-            start_price = price_data.iloc[0]["Close"]
-            end_price = price_data.iloc[-1]["Close"]
+                start_price = price_data.iloc[0]["Close"]
+                end_price = price_data.iloc[-1]["Close"]
 
-            df_start_dt = pd.to_datetime(price_data.iloc[0]["Date"])
-            df_end_dt = pd.to_datetime(price_data.iloc[-1]["Date"])
-            day_count = (df_end_dt - df_start_dt).days
+                df_start_dt = pd.to_datetime(price_data.iloc[0]["Date"])
+                df_end_dt = pd.to_datetime(price_data.iloc[-1]["Date"])
+                day_count = (df_end_dt - df_start_dt).days
 
-            simple_return = (end_price - start_price) / start_price
-            annual_return = (simple_return + 1) ** (1 /
-                                                    (day_count / 365.242199)) - 1
-            price_data["% Change"] = price_data["Close"].apply(
-                lambda x: round(((x / start_price) - 1) * 100, 2))
-            price_data["Return"] = price_data["Close"].apply(
-                lambda x: round(x - start_price, 2))
+                simple_return = (end_price - start_price) / start_price
+                annual_return = (simple_return + 1) ** (1 /
+                                                        (day_count / 365.242199)) - 1
+                price_data["% Change"] = price_data["Close"].apply(
+                    lambda x: round(((x / start_price) - 1) * 100, 2))
+                price_data["Return"] = price_data["Close"].apply(
+                    lambda x: round(x - start_price, 2))
 
-            final_list = []
-            for i in range(0, len(price_data)):
+                final_list = []
+                for i in range(0, len(price_data)):
 
-                final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
-                    "%m/%d/%Y")), 'y': price_data["Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
+                    final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
+                        "%m/%d/%Y")), 'y': price_data["Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
 
-            return Response(final_list, status=status.HTTP_200_OK)
+                return Response(final_list, status=status.HTTP_200_OK)
+        except:
+            print('error')
+            return Response({'unavailable': True}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class annual_portfolio(generics.GenericAPIView):
@@ -235,11 +239,14 @@ class annual_portfolio(generics.GenericAPIView):
         return [ticker, price, div_rate, num_of_shares, annual_div]
 
     def post(self, request,):
-        stock_list = request.data['ticker_list']
-        shares_list = request.data['share_list']
-        div_yield = map(self.get_div_yield, stock_list, shares_list)
-        div_list = list(div_yield)
-        return Response(div_list, status=status.HTTP_200_OK)
+        try:
+            stock_list = request.data['ticker_list']
+            shares_list = request.data['share_list']
+            div_yield = map(self.get_div_yield, stock_list, shares_list)
+            div_list = list(div_yield)
+            return Response(div_list, status=status.HTTP_200_OK)
+        except:
+            return Response({'unavailable': True}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class stock_ticker_compariosn(generics.GenericAPIView):
@@ -314,43 +321,47 @@ class stock_ticker_compariosn(generics.GenericAPIView):
             return cum_returns_tot_invest_adj
 
     def post(self, request,):
-        ticker = request.data['ticker']
-        start_date = request.data['start_date']
-        end_date = request.data['end_date']
-        drip = request.data['drip']
-        investment = float(request.data['investment'])
-        cum_total_returns = self.get_returns(
-            ticker, start_date, end_date, investment, drip)
-        df = pd.DataFrame(cum_total_returns)
-        products_list = df.values.tolist()
-        column_headers = list(df.columns.values)
-        for i in range(0, len(products_list)):
-            products_list[i][0] = str(dt.datetime.strptime(
-                str(products_list[i][0].date()), "%Y-%m-%d").strftime("%m/%d/%Y"))
-        data1 = []
-        if (len(ticker) == 1):
+        try:
+            ticker = request.data['ticker']
+            start_date = request.data['start_date']
+            end_date = request.data['end_date']
+            drip = request.data['drip']
+            investment = float(request.data['investment'])
+            cum_total_returns = self.get_returns(
+                ticker, start_date, end_date, investment, drip)
+            df = pd.DataFrame(cum_total_returns)
+            products_list = df.values.tolist()
+            column_headers = list(df.columns.values)
             for i in range(0, len(products_list)):
-                data1.append(
-                    {'x': products_list[i][0], 'y1': products_list[i][1]})
-            column_headers = ['Date', ticker[0]]
-        elif (len(ticker) == 2):
-            for i in range(0, len(products_list)):
-                data1.append(
-                    {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
-        elif (len(ticker) == 3):
-            for i in range(0, len(products_list)):
-                data1.append(
-                    {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3]})
-        elif (len(ticker) == 4):
-            for i in range(0, len(products_list)):
-                data1.append(
-                    {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3], 'y4': products_list[i][4]})
-        elif (len(ticker) == 5):
-            for i in range(0, len(products_list)):
-                data1.append(
-                    {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3], 'y4': products_list[i][4], 'y5': products_list[i][5]})
+                products_list[i][0] = str(dt.datetime.strptime(
+                    str(products_list[i][0].date()), "%Y-%m-%d").strftime("%m/%d/%Y"))
+            data1 = []
+            if (len(ticker) == 1):
+                for i in range(0, len(products_list)):
+                    data1.append(
+                        {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
+                column_headers = ['Date', 'with DRIP', 'without DRIP']
+            elif (len(ticker) == 2 or len(ticker) == 1):
+                for i in range(0, len(products_list)):
+                    data1.append(
+                        {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
+            elif (len(ticker) == 3):
+                for i in range(0, len(products_list)):
+                    data1.append(
+                        {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3]})
+            elif (len(ticker) == 4):
+                for i in range(0, len(products_list)):
+                    data1.append(
+                        {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3], 'y4': products_list[i][4]})
+            elif (len(ticker) == 5):
+                for i in range(0, len(products_list)):
+                    data1.append(
+                        {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3], 'y4': products_list[i][4], 'y5': products_list[i][5]})
 
-        return Response({'data': data1, 'ticker_serial': column_headers}, status=status.HTTP_200_OK)
+            return Response({'data': data1, 'ticker_serial': column_headers}, status=status.HTTP_200_OK)
+
+        except:
+            return Response({'unavailable': True}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class investment_growth(generics.GenericAPIView):

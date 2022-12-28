@@ -1,4 +1,3 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -40,20 +39,31 @@ const Dashboard = () => {
     const handleDrip = () => {
         setDrip(prev => !prev);
     };
-
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+    const diffTime = (date2 - date1);
     const handleSearch = () => {
+        setLoading(true);
         if (company === null || startDate.length === 0 || endDate.length === 0) {
             toast.warning('please fill all the value');
+            setLoading(false);
             return;
         }
-        setLoading(true);
+
+        if (diffTime <= 0) {
+            toast.warning('end date have to greater than start date');
+            setLoading(false);
+            return;
+        }
+
+
         setData(null);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
             }
         };
-        const body = JSON.stringify({ 'ticker': company.id, 'start_date': startDate, 'end_date': endDate, 'drip': drip });
+        const body = JSON.stringify({ 'ticker': company, 'start_date': startDate, 'end_date': endDate, 'drip': drip });
         axios.post('http://localhost:8000/api/stock-ticker-history/', body, config)
             .then(response => {
                 setLoading(false);
@@ -61,8 +71,12 @@ const Dashboard = () => {
                 setData(response.data);
             }).catch(err => {
                 setLoading(false);
-                toast.error("something went wrong");
-
+                if (err.response.data.unavailable) {
+                    toast.error("please type a valid ticker");
+                }
+                else
+                    toast.error("something went wrong");
+                console.log(err);
             });
     };
     const options = companyData.map((option) => {
@@ -73,24 +87,15 @@ const Dashboard = () => {
         };
     });
 
+
     return (
         <div className="App">
             <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Stock Ticker Price History</h2>
             <div className='search-component'>
 
-                <Autocomplete
-                    id="grouped-demo"
-                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                    groupBy={(option) => option.firstLetter}
-                    getOptionLabel={(option) => option.label}
-                    value={company}
-                    onChange={(_event, newValue) => {
-                        console.log(newValue);
-                        setCompany(newValue);
-                    }}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <TextField {...params} label="Ticker" />}
-                />
+                <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker" variant="outlined" value={company} onChange={(e) => {
+                    setCompany(e.target.value.toUpperCase());
+                }} />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DesktopDatePicker
                         label="Start Date"

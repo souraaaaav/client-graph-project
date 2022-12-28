@@ -1,4 +1,3 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -25,7 +24,11 @@ const MultipleLineDashboard = () => {
     const [tickerSeries, setTickerSeries] = useState(null);
     const [loading, setLoading] = useState(false);
     const [drip, setDrip] = useState(true);
-    const [company, setCompany] = useState(null);
+    const [company1, setCompany1] = useState(null);
+    const [company2, setCompany2] = useState(null);
+    const [company3, setCompany3] = useState(null);
+    const [company4, setCompany4] = useState(null);
+    const [company5, setCompany5] = useState(null);
     const [investment, setInvestment] = useState(null);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -46,18 +49,28 @@ const MultipleLineDashboard = () => {
     const handleDrip = () => {
         setDrip(prev => !prev);
     };
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+    const diffTime = (date2 - date1);
 
     const handleSearch = () => {
-        if (company === null || startDate.length === 0 || endDate.length === 0) {
+        if (company1 === null || startDate.length === 0 || endDate.length === 0 || investment === null) {
             toast.warning('please fill all the value');
             return;
         }
+        if (diffTime <= 0) {
+            toast.warning('end date have to greater than start date');
+            return;
+        }
+
         setLoading(true);
         setData(null);
         let compArr = [];
-        for (let i = 0; i < company.length; i++) {
-            compArr.push(company[i].id);
-        }
+        if (company1 !== null) compArr.push(company1);
+        if (company2 !== null) compArr.push(company2);
+        if (company3 !== null) compArr.push(company3);
+        if (company4 !== null) compArr.push(company4);
+        if (company5 !== null) compArr.push(company5);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +87,11 @@ const MultipleLineDashboard = () => {
                 setTickerSeries(response.data.ticker_serial);
             }).catch(err => {
                 setLoading(false);
-                toast.error("something went wrong");
+                if (err.response.data.unavailable) {
+                    toast.error("please type a valid ticker");
+                }
+                else
+                    toast.error("something went wrong");
 
             });
     };
@@ -85,66 +102,69 @@ const MultipleLineDashboard = () => {
             ...option,
         };
     });
-    console.log(company);
     return (
         <div className="App">
             <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Hypothetical Growth of Tickers</h2>
-            <div className='search-component'>
+            <div className='search-component investment-wrapper'>
 
-                <Autocomplete
-                    multiple
-                    limitTags={2}
-                    id="tags-standard"
-                    options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                    groupBy={(option) => option.firstLetter}
-                    getOptionLabel={(option) => option.label}
-                    getOptionDisabled={(options) => (company && company.length > 4 ? true : false)}
+                <div className='investment-outer-wrapper'>
+                    <div className='investment-inner-wrapper'>
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker 1" variant="outlined" value={company1} onChange={(e) => {
+                            setCompany1(e.target.value.toUpperCase());
+                        }} />
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker 2" variant="outlined" value={company2} onChange={(e) => {
+                            setCompany2(e.target.value.toUpperCase());
+                        }} />
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker 3" variant="outlined" value={company3} onChange={(e) => {
+                            setCompany3(e.target.value.toUpperCase());
+                        }} />
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker 4" variant="outlined" value={company4} onChange={(e) => {
+                            setCompany4(e.target.value.toUpperCase());
+                        }} />
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker 5" variant="outlined" value={company5} onChange={(e) => {
+                            setCompany5(e.target.value.toUpperCase());
+                        }} />
+                    </div>
+                    <div className='investment-inner-wrapper' style={{ alignItems: 'center' }}>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DesktopDatePicker
 
+                                label="Start Date"
+                                inputFormat="MM/DD/YYYY"
+                                value={startDate}
+                                onChange={handleStartChange}
+                                disableFuture={true}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
 
-                    onChange={(_event, newValue) => {
-                        console.log(newValue);
-                        setCompany(newValue);
-                    }}
-                    sx={{ width: 400 }}
-                    renderInput={(params) => <TextField
-                        {...params} label="Select up to 5 tickers " />}
-                />
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker
-                        label="Start Date"
-                        inputFormat="MM/DD/YYYY"
-                        value={startDate}
-                        onChange={handleStartChange}
-                        disableFuture={true}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
+                            <DesktopDatePicker
+                                label="End Date"
+                                inputFormat="MM/DD/YYYY"
+                                value={endDate}
+                                onChange={handleStopChange}
+                                disableFuture={true}
+                                renderInput={(params) => <TextField {...params} />}
+                            />
+                        </LocalizationProvider>
+                        <TextField id="outlined-basic" label="Investment ($)" variant="outlined" value={investment} onChange={(e) => {
+                            console.log(e.target.value); setInvestment(e.target.value);
+                        }} />
 
-                    <DesktopDatePicker
-                        label="End Date"
-                        inputFormat="MM/DD/YYYY"
-                        value={endDate}
-                        onChange={handleStopChange}
-                        disableFuture={true}
-                        renderInput={(params) => <TextField {...params} />}
-                    />
-                </LocalizationProvider>
-                <TextField id="outlined-basic" label="Investment ($)" variant="outlined" value={investment} onChange={(e) => {
-                    console.log(e.target.value); setInvestment(e.target.value);
-                }} />
-
-                <FormControl sx={{ m: 1, minWidth: 100 }}>
-                    <InputLabel id="demo-simple-select-autowidth-label">DRIP</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-autowidth-label"
-                        id="demo-simple-select-autowidth"
-                        value={drip}
-                        label="Age"
-                        onChange={handleDrip}
-                    >
-                        <MenuItem value={false}>False</MenuItem>
-                        <MenuItem value={true}>True</MenuItem>
-                    </Select>
-                </FormControl>
+                        <FormControl sx={{ m: 1, minWidth: 100 }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">DRIP</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                value={drip}
+                                label="Age"
+                                onChange={handleDrip}
+                            >
+                                <MenuItem value={false}>False</MenuItem>
+                                <MenuItem value={true}>True</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                </div>
                 <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Graph</Button>
             </div>
             <div className='Linechart-wrapper'>

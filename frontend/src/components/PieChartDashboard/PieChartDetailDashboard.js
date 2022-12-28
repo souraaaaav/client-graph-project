@@ -7,12 +7,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import HashLoader from 'react-spinners/HashLoader';
 import { toast } from 'react-toastify';
 import { companyData } from '../Dashboard/CompanyData/CompanyData';
 import DashboardLoader from '../Dashboard/DashboardLoader/DashboardLoader';
 import './PieChartDashboard.css';
-import { useNavigate } from "react-router-dom";
 
 
 import { useParams } from 'react-router-dom';
@@ -110,24 +110,26 @@ const PieChartDetailDashboard = () => {
         arr.push({ 'company': company, 'share': share });
 
         console.log(arr, 'arraaaaaaay');
-        setTickerList(arr);
         handleGraph(arr);
 
     };
     const handleRemoveLast = () => {
         let arr = [...tickerList];
         arr.pop();
-        setTickerList(arr);
         handleGraph(arr);
 
     };
 
     const handleGraph = (arr) => {
+        if (company === null || share === null) {
+            toast.warning('please fill all the value');
+            return;
+        }
         setLoading(true);
         const ticker_list = [];
         const share_list = [];
         arr.forEach((el, i) => {
-            ticker_list.push(el.company.id);
+            ticker_list.push(el.company);
             share_list.push(el.share);
         });
         console.log('ticker', ticker_list, share_list);
@@ -151,7 +153,7 @@ const PieChartDetailDashboard = () => {
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
-
+                setTickerList(arr);
                 setLoading(false);
                 toast.success("successfully got the data");
 
@@ -159,7 +161,11 @@ const PieChartDetailDashboard = () => {
 
                 setLoading(false);
 
-                toast.error("something went wrong");
+                if (err.response.data.unavailable) {
+                    toast.error("please type a valid ticker");
+                }
+                else
+                    toast.error("something went wrong");
 
             });
 
