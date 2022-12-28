@@ -128,11 +128,11 @@ const TripleLineChart = ({ width, height, stockData, tickerSeries }) => {
                                     <div className='tooltip-text-wrapper'>
                                         <div>
                                             <span>Ticker : </span>
-                                            <span>${tickerSeries[3]}</span>
+                                            <span>{tickerSeries[3]}</span>
                                         </div>
                                         <div>
                                             <span>Investment value : </span>
-                                            <span>{tooltipData?.nearestDatum?.datum.y3.toFixed(2)} $</span>
+                                            <span>${tooltipData?.nearestDatum?.datum.y3.toFixed(2)} </span>
                                         </div>
                                     </div>
                                 </div> : null
