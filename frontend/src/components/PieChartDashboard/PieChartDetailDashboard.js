@@ -1,4 +1,3 @@
-import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -71,7 +70,7 @@ const PieChartDetailDashboard = () => {
                     labelArr.push(response.data.data[i][0]);
                     seriesArr.push(response.data.data[i][4]);
                     shareArr.push(parseFloat(response.data.data[i][3]).toFixed(2));
-                    tickerUpdate.push({ 'company': { 'id': response.data.data[i][0] }, 'share': parseFloat(response.data.data[i][3]).toFixed(2) });
+                    tickerUpdate.push({ 'company': response.data.data[i][0], 'share': parseFloat(response.data.data[i][3]).toFixed(2) });
                 }
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
@@ -241,19 +240,9 @@ const PieChartDetailDashboard = () => {
                 <>
                     <div className='search-component'>
 
-                        <Autocomplete
-                            id="grouped-demo"
-                            options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
-                            groupBy={(option) => option.firstLetter}
-                            getOptionLabel={(option) => option.label}
-                            value={company}
-                            onChange={(_event, newValue) => {
-                                console.log(newValue);
-                                setCompany(newValue);
-                            }}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Ticker" />}
-                        />
+                        <TextField style={{ textTransform: 'uppercase' }} id="outlined-basic" label="Ticker" variant="outlined" value={company} onChange={(e) => {
+                            setCompany(e.target.value.toUpperCase());
+                        }} />
                         <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={share} onChange={(e) => setShare(e.target.value)} />
 
 
