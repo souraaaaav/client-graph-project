@@ -34,6 +34,7 @@ const TripleLineChart = ({ width, height, stockData, tickerSeries }) => {
             <Axis
                 orientation='left'
                 numTicks={10}
+                tickClassName="test-y"
 
                 label='Stock Price ($)'
 

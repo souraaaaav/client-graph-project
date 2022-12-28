@@ -138,7 +138,9 @@ const Dashboard = () => {
                 }
             </div>
             <div>
-                <h1>How to Use?</h1>
+                <br />
+                <br />
+                <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
                 <br />
                 This tool will output an interactive line graph of a particular stock’s price history.
                 <br />
@@ -157,7 +159,7 @@ const Dashboard = () => {
                 <br />
                 <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                     <a href="/terms" className="terms">
-                        Terms & Condition
+                        Terms & Conditions
 
                     </a>
                 </p>

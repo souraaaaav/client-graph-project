@@ -40,6 +40,7 @@ const PieChartDetailDashboard = () => {
     const [pieName, setPieName] = useState(null);
     const [tickerList, setTickerList] = useState([]);
     const [graphData, setGraphData] = useState(null);
+    const [total, setTotal] = useState(null);
     const [loading, setLoading] = useState(null);
     const [bigLoading, setBigLoading] = useState(true);
     const [labelList, setLabelList] = useState([]);
@@ -77,12 +78,18 @@ const PieChartDetailDashboard = () => {
                 setShareList(shareArr);
                 console.log('tickerupdateee'.tickerUpdate);
                 setTickerList(tickerUpdate);
+                setTotal(response.data.total);
+
                 setBigLoading(false);
 
             }).catch(err => {
 
                 setBigLoading(false);
-
+                if (err.response.data.unavailable) {
+                    toast.error("please type a valid ticker");
+                }
+                else
+                    toast.error("something went wrong");
 
             });
 
@@ -112,17 +119,20 @@ const PieChartDetailDashboard = () => {
         handleGraph(arr);
 
     };
-    const handleRemoveLast = () => {
+    const handleRemove = (ind) => {
         let arr = [...tickerList];
-        arr.pop();
-        handleGraph(arr);
+        arr.splice(ind, 1);
+
+        handleGraph(arr, true);
 
     };
 
-    const handleGraph = (arr) => {
-        if (company === null || share === null) {
-            toast.warning('please fill all the value');
-            return;
+    const handleGraph = (arr, check = false) => {
+        if (check === true) {
+            if (company === null || share === null) {
+                toast.warning('please fill all the value');
+                return;
+            }
         }
         setLoading(true);
         const ticker_list = [];
@@ -140,19 +150,21 @@ const PieChartDetailDashboard = () => {
         const body = JSON.stringify({ 'ticker_list': ticker_list, 'share_list': share_list });
         axios.post('http://localhost:8000/api/annual-portfolio/', body, config)
             .then(response => {
-                setGraphData(response.data);
+                setGraphData(response.data.data);
                 let labelArr = [];
                 let seriesArr = [];
                 let shareArr = [];
-                for (let i = 0; i < response.data.length; i++) {
-                    labelArr.push(response.data[i][0]);
-                    seriesArr.push(response.data[i][4]);
-                    shareArr.push(parseFloat(response.data[i][3]).toFixed(2));
+                for (let i = 0; i < response.data.data.length; i++) {
+                    labelArr.push(response.data.data[i][0]);
+                    seriesArr.push(response.data.data[i][4]);
+                    shareArr.push(parseFloat(response.data.data[i][3]).toFixed(2));
                 }
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
                 setTickerList(arr);
+                setTotal(response.data.total);
+
                 setLoading(false);
                 toast.success("successfully got the data");
 
@@ -248,7 +260,7 @@ const PieChartDetailDashboard = () => {
 
 
                         <Button variant="contained" className='dashboard-button' onClick={handleAddList}>Add to List</Button>
-                        <Button variant="contained" className='dashboard-button' onClick={handleRemoveLast}>Remove last</Button>
+
                         <Button variant="contained" className='dashboard-button' onClick={handleOpen}>Update Table</Button>
                         <Button variant="contained" className='dashboard-button' onClick={handleDelete}>Delete Table</Button>
 
@@ -271,62 +283,72 @@ const PieChartDetailDashboard = () => {
                     </Modal>
 
                     <div className='inner-pie-wrapper'>
+                        <div>
 
-                        <table className='content-table'>
-                            <thead>
-                                <tr>
-                                    <th>Ticker</th>
-                                    <th>Price</th>
-                                    <th>Annual Div Per Share ($)</th>
-                                    <th>Total Shares</th>
-                                    <th>Annual Total Dividend ($)</th>
-                                </tr>
-                            </thead>
+                            {total && <p>Total amount of dividends collected per year: {loading ? <DashboardLoader /> : <b>${total}</b>}</p>}
+                            <table className='content-table'>
+                                <thead>
+                                    <tr>
+                                        <th>Ticker</th>
+                                        <th>Price</th>
+                                        <th>Div. Yield (%)</th>
+                                        <th>Annual Div Per Share ($)</th>
+                                        <th>Total Shares</th>
+                                        <th>Annual Total Dividend ($)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
 
-                            <tbody>
+                                <tbody>
 
-                                {loading === true ? <tr><td colSpan="5"><DashboardLoader /></td></tr> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ?
-                                    graphData && graphData.map((el) => (
-                                        <tr>
-                                            <td>{el[0] ? el[0] : 'none'}</td>
-                                            <td>{el[1] ? el[1].toFixed(2) : 'none'}</td>
-                                            <td>{el[2] ? el[2].toFixed(2) : 'none'}</td>
-                                            <td>{el[3] ? el[3] : 'none'}</td>
-                                            <td>{el[4] ? el[4].toFixed(2) : 'none'}</td>
-                                        </tr>
-                                    ))
-                                    : <tr><td colSpan="5">select a valid ticker</td></tr>}
-                            </tbody>
-                        </table>
+                                    {loading === true ? <tr><td colSpan="6"><DashboardLoader /></td></tr> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ?
+                                        graphData && graphData.map((el, ind) => (
+                                            <tr>
+                                                <td>{el[0] ? el[0] : 'none'}</td>
+                                                <td>{el[1] ? el[1].toFixed(2) : 'none'}</td>
+                                                <td>{el[5] ? el[5].toFixed(2) : 'none'}</td>
+                                                <td>{el[2] ? el[2].toFixed(2) : 'none'}</td>
+                                                <td>{el[3] ? el[3] : 'none'}</td>
+                                                <td>{el[4] ? el[4].toFixed(2) : 'none'}</td>
+                                                <td onClick={() => handleRemove(ind)}><i class='bx bxs-trash remove-row'></i></td>
+                                            </tr>
+                                        ))
+                                        : <tr><td colSpan="6">Select a Ticker</td></tr>}
+                                </tbody>
+                            </table>
+                        </div>
                         {
                             loading === true ? <DashboardLoader /> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ? <div>
                                 <Chart options={config.options} series={config.series} type="pie" width="380" />
 
-                            </div> : <p>select a valid ticker</p>
+                            </div> : null
 
                         }
 
                     </div>
+                    <div>
+                        <br />
+                        <br />
+                        <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
+                        <br />
+                        This tool will output a data table and interactive pie chart displaying the amount of dividends that will be paid annually (per year) for owning a particular portfolio of stocks. There is a limit of 15 stocks per table. In order to save the table the user must register an account. There is a save limit of 5 total tables per account. The saved tables will be found under the “Saved Tables” icon in the side-bar.
+                        <br /><br />
+                        <b>Ticker: </b>   Enter in a valid ticker symbol. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
+                        <br /><br />
+                        <b># of Shares: </b> Enter the total number of shares owned for the specified ticker.
+                        <br />
+                        <br />
+                        <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                            <a href="/terms" className="terms">
+                                Terms & Conditions
+
+                            </a>
+                        </p>
+                        <br />
+                    </div>
                 </>
             }
-            <div>
-                <h1>How to Use?</h1>
-                <br />
-                This tool will output a data table and interactive pie chart displaying the amount of dividends that will be paid annually (per year) for owning a particular portfolio of stocks. There is a limit of 15 stocks per table. In order to save the table the user must register an account. There is a save limit of 5 total tables per account. The saved tables will be found under the “Saved Tables” icon in the side-bar.
-                <br /><br />
-                <b>Ticker: </b>   Enter in a valid ticker symbol. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
-                <br /><br />
-                <b># of Shares: </b> Enter the total number of shares owned for the specified ticker.
-                <br />
-                <br />
-                <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
-                    <a href="/terms" className="terms">
-                        Terms & Condition
 
-                    </a>
-                </p>
-                <br />
-            </div>
         </div>
 
     );

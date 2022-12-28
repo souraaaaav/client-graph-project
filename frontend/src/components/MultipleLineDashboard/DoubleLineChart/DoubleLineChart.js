@@ -34,7 +34,9 @@ const DoubleLineChart = ({ width, height, stockData, tickerSeries }) => {
             <Axis
                 orientation='left'
                 numTicks={10}
+                tickClassName="test-y"
                 label='Stock Price ($)'
+                labelXOffset={50}
 
             />
 

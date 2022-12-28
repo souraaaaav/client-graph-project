@@ -82,17 +82,19 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                     </li>
                     <li>
                         <NavLink activeClassName="activeLink" to='/investment-growth'>
+                            <i class='bx bxs-notepad'></i>
+                            <span class="links_name">Growth of Shares</span>
+                        </NavLink>
+                        <span class="tooltip">Growth of Shares</span>
+                    </li>
+
+                    <li>
+
+                        <NavLink activeClassName="activeLink" to='/growth-of-share'>
                             <i class='bx bxs-credit-card-front' ></i>
                             <span class="links_name">Periodic Contribution</span>
                         </NavLink>
                         <span class="tooltip">Periodic Contribution</span>
-                    </li>
-                    <li>
-                        <NavLink activeClassName="activeLink" to='/growth-of-share'>
-                            <i class='bx bxs-notepad'></i>
-                            <span class="links_name">Growth of Share</span>
-                        </NavLink>
-                        <span class="tooltip">Growth of Share</span>
                     </li>
 
 

@@ -18,3 +18,8 @@
 .Linechart-wrapper {
     text-align: center;
 }
+
+.test-y {
+    font-size: 5px;
+    transform: translate(3px, 0px);
+}

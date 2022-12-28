@@ -32,6 +32,26 @@ const GrowthOfShare = () => {
             return;
         }
 
+        if (iniPrice > 1000) {
+            toast.warning("initial price can't be greater than 1000$");
+            return;
+        }
+        if (iniShare > 1000) {
+            toast.warning("number of shares can't be greater than 1000");
+            return;
+        }
+        if (growthRate > 0.2) {
+            toast.warning("Please select growth rate from 0.0-0.2");
+            return;
+        }
+        if (divYeild > 0.25) {
+            toast.warning("please select div yield from 0.00-0.25");
+            return;
+        }
+        if (annualDiv > 0.25) {
+            toast.warning("please select annual div growth rate from 0.00-0.25");
+            return;
+        }
         setLoading(true);
         setData(null);
 
@@ -99,9 +119,9 @@ const GrowthOfShare = () => {
                 }
             </div>
             <div>
-                <h1>
-                    How to Use?
-                </h1>
+                <br />
+                <br />
+                <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
                 <br />
                 This tool will output a data table showing the growth of shares over a specified number of years with Dividend Reinvestment Plan (DRIP). The table will show the growth per year of the investment.
                 <br /><br />
@@ -125,7 +145,7 @@ const GrowthOfShare = () => {
                 <br />
                 <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                     <a href="/terms" className="terms">
-                        Terms & Condition
+                        Terms & Conditions
 
                     </a>
                 </p>

@@ -28,8 +28,20 @@ const MultipleLineDashboard = () => {
             toast.warning('please fill all the value');
             return;
         }
-        if (year > 25) {
-            toast.warning('Please select from 1-25 years');
+        if (year > 50) {
+            toast.warning('Please select from 1-50 years');
+            return;
+        }
+        if (investment > 1000000) {
+            toast.warning("investment value can't be greater than 1,000,000$");
+            return;
+        }
+        if (growthRate > 0.2) {
+            toast.warning("Please select growth rate from 0-0.2");
+            return;
+        }
+        if (addContrib > 10000) {
+            toast.warning("additional contribution can't be greater than 10,000$");
             return;
         }
         setLoading(true);
@@ -63,7 +75,7 @@ const MultipleLineDashboard = () => {
             <div className='search-component investment-wrapper'>
                 <div className='investment-outer-wrapper'>
                     <div className='investment-inner-wrapper'>
-                        <TextField id="outlined-basic" label="Initial Investment($)" variant="outlined" value={investment} onChange={(e) => {
+                        <TextField id="outlined-basic" label="Initial Investment ($)" variant="outlined" value={investment} onChange={(e) => {
                             setInvestment(e.target.value);
                         }} />
                         <TextField id="outlined-basic" label="Annual Growth Rate" variant="outlined" value={growthRate} onChange={(e) => {
@@ -109,7 +121,9 @@ const MultipleLineDashboard = () => {
                 }
             </div>
             <div>
-                <h1>How to Use?</h1>
+                <br />
+                <br />
+                <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
                 <br />
 
                 This tool will output an interactive bar chart showing the growth of an initial investment with periodic contributions over a specified number of years.
@@ -128,7 +142,7 @@ const MultipleLineDashboard = () => {
                 <br />
                 <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                     <a href="/terms" className="terms">
-                        Terms & Condition
+                        Terms & Conditions
 
                     </a>
                 </p>

@@ -58,6 +58,10 @@ const MultipleLineDashboard = () => {
             toast.warning('please fill all the value');
             return;
         }
+        if (investment > 1000000) {
+            toast.warning("investment value can't be greater than 1,000,000$");
+            return;
+        }
         if (diffTime <= 0) {
             toast.warning('end date have to greater than start date');
             return;
@@ -185,11 +189,13 @@ const MultipleLineDashboard = () => {
                                             <p style={{ marginTop: '50px' }}> Select a Ticker</p>
                 }
             </div>
-            <h1> How to Use?</h1>
+            <br />
+            <br />
+            <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
             <br />
             This tool will output an interactive line graph displaying the hypothetical growth of an investment over a specified period of time for a particular stock(s). Enter up to 5 stocks at a time to compare their performances.
             <br /><br />
-            <b>Enter up to 5 tickers: </b>
+            <b>Ticker: </b>
             Enter in a valid ticker symbol. Up to 5 ticker symbols can be entered. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
             <br /><br />
             <b>Start Date: </b>
@@ -207,7 +213,7 @@ const MultipleLineDashboard = () => {
             <br />
             <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                 <a href="/terms" className="terms">
-                    Terms & Condition
+                    Terms & Conditions
 
                 </a>
             </p>

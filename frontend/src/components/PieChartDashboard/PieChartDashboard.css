@@ -76,3 +76,13 @@ td {
 .terms:hover {
     color: blue;
 }
+
+.remove-row {
+    color: rgb(244, 123, 123);
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.remove-row:hover {
+    color: red;
+}

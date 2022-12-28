@@ -35,6 +35,7 @@ const QuadLineChart = ({ width, height, stockData, tickerSeries }) => {
                 orientation='left'
                 numTicks={10}
                 label='Stock Price ($)'
+                tickClassName="test-y"
 
             />
 

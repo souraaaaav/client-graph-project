@@ -3,6 +3,7 @@ import json
 import math
 import random
 
+import numpy as np
 import pandas as pd
 import requests
 import yfinance as yf
@@ -237,7 +238,12 @@ class annual_portfolio(generics.GenericAPIView):
             annual_div = float(num_of_shares) * div_rate
         else:
             annual_div = 0
-        return [ticker, price, div_rate, num_of_shares, annual_div]
+        div_yield = 0
+        print(div_rate)
+        if div_rate != None:
+            div_yield = round(div_rate / price, 4) * 100
+        return [ticker, price, div_rate, num_of_shares, annual_div, div_yield]
+        # return [ticker, price, div_rate, num_of_shares, annual_div]
 
     def post(self, request,):
         try:
@@ -245,8 +251,31 @@ class annual_portfolio(generics.GenericAPIView):
             shares_list = request.data['share_list']
             div_yield = map(self.get_div_yield, stock_list, shares_list)
             div_list = list(div_yield)
-            return Response(div_list, status=status.HTTP_200_OK)
-        except:
+
+            print(1)
+            div_df = pd.DataFrame(div_list, columns=[
+                                  "Ticker", "Price", "Div. Yield (%)", "Annual Div. Per Share ($)", "Total Shares", "Annual Total Dividend ($)"])
+            div_df["Annual Div. Per Share ($)"] = div_df["Annual Div. Per Share ($)"].fillna(
+                0)
+            div_df["Annual Div. Per Share ($)"] = np.array(
+                div_df["Annual Div. Per Share ($)"], dtype=np.float32)
+
+            div_df["Annual Div. Per Share ($)"] = round(
+                (div_df["Annual Div. Per Share ($)"]), 2)
+            div_df["Total Shares"] = div_df["Total Shares"].fillna(
+                0)
+            div_df["Total Shares"] = np.array(
+                div_df["Total Shares"], dtype=np.float32)
+            div_df["Total Shares"] = round(
+                div_df["Total Shares"], 2)
+
+            total_account_div = round(
+                sum(div_df["Total Shares"]), 2)
+            print(1)
+
+            return Response({'data': div_list, 'total': total_account_div}, status=status.HTTP_200_OK)
+        except Exception as e:
+            print(e)
             return Response({'unavailable': True}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -342,7 +371,8 @@ class stock_ticker_compariosn(generics.GenericAPIView):
                 for i in range(0, len(products_list)):
                     data1.append(
                         {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
-                column_headers = ['Date', 'with DRIP', 'without DRIP']
+                column_headers = [
+                    'Date', '{} with DRIP'.format(ticker[0]), '{} without DRIP'.format(ticker[0])]
             elif (len(ticker) == 2):
                 for i in range(0, len(products_list)):
 
@@ -508,7 +538,7 @@ class growth_of_share(generics.GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@ api_view(["POST"])
 def getAllPieInfo(request):
     user = User.objects.get(email=request.data['email'])
     allPie = PieInfo.objects.filter(user=user)
@@ -518,7 +548,7 @@ def getAllPieInfo(request):
     return Response(x, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@ api_view(["POST"])
 def detailPieInfo(request, id):
     user = User.objects.get(email=request.data['email'])
     detailPie = PieInfo.objects.get(user=user, id=id)
@@ -537,14 +567,37 @@ def detailPieInfo(request, id):
             annual_div = float(num_of_shares) * div_rate
         else:
             annual_div = 0
-        return [ticker, price, div_rate, num_of_shares, annual_div]
+        div_yield = 0
+        print(div_rate)
+        if div_rate != None:
+            div_yield = round(div_rate / price, 4) * 100
+        return [ticker, price, div_rate, num_of_shares, annual_div, div_yield]
 
     div_yield = map(get_div_yield, stock_list, shares_list)
     div_list = list(div_yield)
-    return Response({'data': div_list, 'name': x['name']}, status=status.HTTP_200_OK)
+    div_df = pd.DataFrame(div_list, columns=[
+        "Ticker", "Price", "Div. Yield (%)", "Annual Div. Per Share ($)", "Total Shares", "Annual Total Dividend ($)"])
+    div_df["Annual Div. Per Share ($)"] = div_df["Annual Div. Per Share ($)"].fillna(
+        0)
+    div_df["Annual Div. Per Share ($)"] = np.array(
+        div_df["Annual Div. Per Share ($)"], dtype=np.float32)
+
+    div_df["Annual Div. Per Share ($)"] = round(
+        (div_df["Annual Div. Per Share ($)"]), 2)
+    div_df["Total Shares"] = div_df["Total Shares"].fillna(
+        0)
+    div_df["Total Shares"] = np.array(
+        div_df["Total Shares"], dtype=np.float32)
+    div_df["Total Shares"] = round(
+        div_df["Total Shares"], 2)
+
+    total_account_div = round(
+        sum(div_df["Total Shares"]), 2)
+    print(1)
+    return Response({'data': div_list, 'name': x['name'], 'total': total_account_div}, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@ api_view(["POST"])
 def savePieInfo(request):
     user = User.objects.get(email=request.data['email'])
     test = PieInfo.objects.filter(user=user)
@@ -558,7 +611,7 @@ def savePieInfo(request):
     return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@ api_view(["POST"])
 def updatePieInfo(request, id):
     user = User.objects.get(email=request.data['email'])
     p = PieInfo.objects.get(user=user, id=id)
@@ -569,7 +622,7 @@ def updatePieInfo(request, id):
     return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
 
 
-@api_view(["POST"])
+@ api_view(["POST"])
 def deletePieinfo(request, id):
     user = User.objects.get(email=request.data['email'])
     p = PieInfo.objects.get(user=user, id=id)
