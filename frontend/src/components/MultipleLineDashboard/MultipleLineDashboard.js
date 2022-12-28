@@ -66,11 +66,12 @@ const MultipleLineDashboard = () => {
         setLoading(true);
         setData(null);
         let compArr = [];
-        if (company1 !== null) compArr.push(company1);
-        if (company2 !== null) compArr.push(company2);
-        if (company3 !== null) compArr.push(company3);
-        if (company4 !== null) compArr.push(company4);
-        if (company5 !== null) compArr.push(company5);
+        console.log(company3?.length);
+        if (company1 !== null && (company1 && company1.length !== 0)) compArr.push(company1);
+        if (company2 !== null && (company2 && company2.length !== 0)) compArr.push(company2);
+        if (company3 !== null && (company3 && company3.length !== 0)) compArr.push(company3);
+        if (company4 !== null && (company4 && company4.length !== 0)) compArr.push(company4);
+        if (company5 !== null && (company5 && company5.length !== 0)) compArr.push(company5);
         const config = {
             headers: {
                 'Content-Type': 'application/json',
@@ -184,6 +185,33 @@ const MultipleLineDashboard = () => {
                                             <p style={{ marginTop: '50px' }}> Select a Ticker</p>
                 }
             </div>
+            <h1> How to Use?</h1>
+            <br />
+            This tool will output an interactive line graph displaying the hypothetical growth of an investment over a specified period of time for a particular stock(s). Enter up to 5 stocks at a time to compare their performances.
+            <br /><br />
+            <b>Enter up to 5 tickers: </b>
+            Enter in a valid ticker symbol. Up to 5 ticker symbols can be entered. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
+            <br /><br />
+            <b>Start Date: </b>
+            Start date of the stock’s price history.
+            <br /><br />
+            <b>End Date: </b>
+            End date of the stock’s price history.
+            <br /><br />
+            <b>Investment ($): </b>
+            Enter the total amount of money invested at the “Start Date”.
+            <br /><br />
+            <b>DRIP: </b>
+            DRIP stands for “Dividend Reinvestment Plan”. If DRIP is set to True, this will account for any dividends paid and any stock splits in the stock’s price history. If DRIP is set to False, this will NOT account for any dividends paid and stock splits in the stock’s price history.
+            <br />
+            <br />
+            <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                <a href="/terms" className="terms">
+                    Terms & Condition
+
+                </a>
+            </p>
+            <br />
         </div>
     );
 };

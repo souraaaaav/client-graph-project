@@ -137,6 +137,32 @@ const Dashboard = () => {
                             <LineChart width={1200} height={600} stockData={data} /> : <p style={{ marginTop: '50px' }}> Select a Ticker</p>
                 }
             </div>
+            <div>
+                <h1>How to Use?</h1>
+                <br />
+                This tool will output an interactive line graph of a particular stock’s price history.
+                <br />
+                <br />
+                <b>Ticker: </b> Enter in a valid ticker symbol. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
+                <br />
+                <br />
+                <b>Start Date: </b> Start date of the stock’s price history.
+                <br />
+                <br />
+                <b>End Date: </b>  End date of the stock’s price history.
+                <br />
+                <br />
+                <b>DRIP: </b> DRIP stands for “Dividend Reinvestment Plan”. If DRIP is set to True, this will account for any dividends paid and any stock splits in the stock’s price history. If DRIP is set to False, this will NOT account for any dividends paid and stock splits in the stock’s price history.
+                <br />
+                <br />
+                <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                    <a href="/terms" className="terms">
+                        Terms & Condition
+
+                    </a>
+                </p>
+                <br />
+            </div>
         </div>
     );
 };

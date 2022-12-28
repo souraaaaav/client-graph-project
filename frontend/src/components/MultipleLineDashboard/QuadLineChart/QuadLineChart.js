@@ -90,65 +90,69 @@ const QuadLineChart = ({ width, height, stockData, tickerSeries }) => {
                             )}
                         </div>
                         <br />
-                        <div className='tooltip-wrapper'>
-                            <div class="green-circle">
-                            </div>
-                            <div className='tooltip-text-wrapper'>
-                                <div>
-                                    <span>Ticker : </span>
-                                    <span>{tickerSeries[1]}</span>
+                        {tooltipData?.nearestDatum?.datum.y1 !== 0 ?
+                            <div className='tooltip-wrapper'>
+                                <div class="green-circle">
                                 </div>
-                                <div>
-                                    <span>Investment value : </span>
-                                    <span>{tooltipData?.nearestDatum?.datum.y1.toFixed(2)} $</span>
+                                <div className='tooltip-text-wrapper'>
+                                    <div>
+                                        <span>Ticker : </span>
+                                        <span>{tickerSeries[1]}</span>
+                                    </div>
+                                    <div>
+                                        <span>Investment value : </span>
+                                        <span>${tooltipData?.nearestDatum?.datum.y1.toFixed(2)} </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> : null}
                         <br />
-                        <div className='tooltip-wrapper'>
-                            <div class="red-circle">
-                            </div>
-                            <div className='tooltip-text-wrapper'>
-                                <div>
-                                    <span>Ticker : </span>
-                                    <span>{tickerSeries[2]}</span>
+                        {tooltipData?.nearestDatum?.datum.y2 !== 0 ?
+                            <div className='tooltip-wrapper'>
+                                <div class="red-circle">
                                 </div>
-                                <div>
-                                    <span>Investment value : </span>
-                                    <span>{tooltipData?.nearestDatum?.datum.y2.toFixed(2)} $</span>
+                                <div className='tooltip-text-wrapper'>
+                                    <div>
+                                        <span>Ticker : </span>
+                                        <span>{tickerSeries[2]}</span>
+                                    </div>
+                                    <div>
+                                        <span>Investment value : </span>
+                                        <span>${tooltipData?.nearestDatum?.datum.y2.toFixed(2)} </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> : null}
                         <br />
-                        <div className='tooltip-wrapper'>
-                            <div class="blue-circle">
-                            </div>
-                            <div className='tooltip-text-wrapper'>
-                                <div>
-                                    <span>Ticker : </span>
-                                    <span>{tickerSeries[3]}</span>
+                        {tooltipData?.nearestDatum?.datum.y3 !== 0 ?
+                            <div className='tooltip-wrapper'>
+                                <div class="blue-circle">
                                 </div>
-                                <div>
-                                    <span>Investment value : </span>
-                                    <span>{tooltipData?.nearestDatum?.datum.y3.toFixed(2)} $</span>
+                                <div className='tooltip-text-wrapper'>
+                                    <div>
+                                        <span>Ticker : </span>
+                                        <span>{tickerSeries[3]}</span>
+                                    </div>
+                                    <div>
+                                        <span>Investment value : </span>
+                                        <span>${tooltipData?.nearestDatum?.datum.y3.toFixed(2)} </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> : null}
                         <br />
-                        <div className='tooltip-wrapper'>
-                            <div class="violet-circle">
-                            </div>
-                            <div className='tooltip-text-wrapper'>
-                                <div>
-                                    <span>Ticker : </span>
-                                    <span>{tickerSeries[4]}</span>
+                        {tooltipData?.nearestDatum?.datum.y4 !== 0 ?
+                            <div className='tooltip-wrapper'>
+                                <div class="violet-circle">
                                 </div>
-                                <div>
-                                    <span>Investment value : </span>
-                                    <span>{tooltipData?.nearestDatum?.datum.y4.toFixed(2)} $</span>
+                                <div className='tooltip-text-wrapper'>
+                                    <div>
+                                        <span>Ticker : </span>
+                                        <span>{tickerSeries[4]}</span>
+                                    </div>
+                                    <div>
+                                        <span>Investment value : </span>
+                                        <span>${tooltipData?.nearestDatum?.datum.y4.toFixed(2)} </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> : null}
                         <br />
                     </div>
                 )

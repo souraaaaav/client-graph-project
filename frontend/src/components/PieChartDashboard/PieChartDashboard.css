@@ -72,3 +72,7 @@ td {
 .dashboard-button:hover {
     background-color: #212121 !important;
 }
+
+.terms:hover {
+    color: blue;
+}

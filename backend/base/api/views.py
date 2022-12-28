@@ -1,5 +1,6 @@
 import datetime as dt
 import json
+import math
 import random
 
 import pandas as pd
@@ -330,6 +331,7 @@ class stock_ticker_compariosn(generics.GenericAPIView):
             cum_total_returns = self.get_returns(
                 ticker, start_date, end_date, investment, drip)
             df = pd.DataFrame(cum_total_returns)
+            df = df.fillna(0)
             products_list = df.values.tolist()
             column_headers = list(df.columns.values)
             for i in range(0, len(products_list)):
@@ -341,8 +343,9 @@ class stock_ticker_compariosn(generics.GenericAPIView):
                     data1.append(
                         {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
                 column_headers = ['Date', 'with DRIP', 'without DRIP']
-            elif (len(ticker) == 2 or len(ticker) == 1):
+            elif (len(ticker) == 2):
                 for i in range(0, len(products_list)):
+
                     data1.append(
                         {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2]})
             elif (len(ticker) == 3):
@@ -357,7 +360,7 @@ class stock_ticker_compariosn(generics.GenericAPIView):
                 for i in range(0, len(products_list)):
                     data1.append(
                         {'x': products_list[i][0], 'y1': products_list[i][1], 'y2': products_list[i][2], 'y3': products_list[i][3], 'y4': products_list[i][4], 'y5': products_list[i][5]})
-
+            print(data1[:10])
             return Response({'data': data1, 'ticker_serial': column_headers}, status=status.HTTP_200_OK)
 
         except:

@@ -98,6 +98,39 @@ const GrowthOfShare = () => {
                             null
                 }
             </div>
+            <div>
+                <h1>
+                    How to Use?
+                </h1>
+                <br />
+                This tool will output a data table showing the growth of shares over a specified number of years with Dividend Reinvestment Plan (DRIP). The table will show the growth per year of the investment.
+                <br /><br />
+                <b># of Shares: </b>
+                Total number of shares owned.
+                <br /><br /><b>Share Price: </b>
+                Cost per share of a particular security.
+                <br /><br /><b>Annual Growth Rate: </b>
+                This is an average measure of how much the price of the stock has increased on a yearly basis, expressed as a percentage. The value must be between 0.00-0.20.
+                <br /><br /><b>Div. Yield: </b>
+                A dividend yield is a financial ratio that shows how much a company pays out in dividends each year relative to its share price. It is calculated by dividing the annual dividend per share by the price per share. For example, if a company has a dividend yield of 0.03 (3%) and the current price per share is $50, it means that the company is paying out $1.50 in dividends per year for each share that is owned. The value must be between 0.00-0.25
+                <br /><br /><b>
+                    Annual Div. Growth Rate:
+                </b>
+                The annual dividend growth rate is the percentage by which a company's dividends per share (DPS) increase from one year to the next. It is calculated by dividing the change in DPS by the previous year's DPS and expressing the result as a percentage. For example, if a company paid a dividend of $1 per share in 2020 and $1.10 per share in 2021, its annual dividend growth rate would be: (1.10 - 1) / 1 = 0.10. Annual dividend growth rate = 10%.
+                <br /><br /><b>
+                    # of Years:
+                </b>
+                The number of years the investment will have to grow.
+                <br />
+                <br />
+                <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                    <a href="/terms" className="terms">
+                        Terms & Condition
+
+                    </a>
+                </p>
+                <br />
+            </div>
         </div>
     );
 };

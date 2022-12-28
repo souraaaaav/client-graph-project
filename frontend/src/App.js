@@ -19,10 +19,11 @@ import GrowthOfShare from "./components/GrowthOfShare/GrowthOfShare";
 import InvestmentGrowth from "./components/InvestmentGrowth/InvestmentGrowth";
 import MultipleLineDashboard from "./components/MultipleLineDashboard/MultipleLineDashboard";
 import PieChartDashboard from "./components/PieChartDashboard/PieChartDashboard";
-import Registration from "./components/Registration/Registration";
-import UserEmailConfirm from "./components/UserEmailConfirm/UserEmailConfirm";
-import SavedPieDashboard from "./components/SavedPieDashboard/SavedPieDashboard";
 import PieChartDetailDashboard from "./components/PieChartDashboard/PieChartDetailDashboard";
+import Registration from "./components/Registration/Registration";
+import SavedPieDashboard from "./components/SavedPieDashboard/SavedPieDashboard";
+import Terms from "./components/Terms/Terms";
+import UserEmailConfirm from "./components/UserEmailConfirm/UserEmailConfirm";
 
 
 const App = ({ check_continuous_auth }) => {
@@ -42,6 +43,7 @@ const App = ({ check_continuous_auth }) => {
           <Route exact path='/saved-pie-dashboard' element={<SavedPieDashboard />} />
           <Route exact path='/saved-pie-dashboard/:id' element={<PieChartDetailDashboard />} />
           <Route exact path='/registration' element={<Registration />} />
+          <Route exact path='/terms' element={<Terms />} />
           <Route exact path='/user/email-confirm' element={<UserEmailConfirm />} />
           <Route exact path='/login' element={<Login />} />
           <Route exact path='/forget-password' element={<ForgetPasswordStart />} />

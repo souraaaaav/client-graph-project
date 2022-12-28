@@ -108,6 +108,32 @@ const MultipleLineDashboard = () => {
                             null
                 }
             </div>
+            <div>
+                <h1>How to Use?</h1>
+                <br />
+
+                This tool will output an interactive bar chart showing the growth of an initial investment with periodic contributions over a specified number of years.
+                <br /><br />
+                <b>Initial Investment ($): </b>
+                Enter an initial investment amount up to $1,000,000.
+                <br /><br /><b>Annual Growth Rate: </b>
+                This is an average measure of how much the price of the stock has increased on a yearly basis, expressed as a percentage. The value must be between 0.00-0.20.
+                <br /><br /><b>Additional Contribution: </b>
+                Amount of money that will be invested after the “Initial Investment”.
+                <br /><br /><b>Contribution Rate: </b>
+                This is how often the “Additional Contribution” amount is made per year. For example, if “semi-annually” is chosen for “Contribution Rate” and $100 is entered for the “Additional Contribution”, then an additional investment of $100 will be made twice a year ($200 total per year).
+                <br /><br /><b># of Years: </b>
+                The number of years the investment will have to grow.
+                <br />
+                <br />
+                <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                    <a href="/terms" className="terms">
+                        Terms & Condition
+
+                    </a>
+                </p>
+                <br />
+            </div>
         </div>
     );
 };

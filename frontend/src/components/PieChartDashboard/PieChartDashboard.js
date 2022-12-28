@@ -235,7 +235,25 @@ const PieChartDashboard = () => {
                 }
 
             </div>
-        </div>
+            <div>
+                <h1>How to Use?</h1>
+                <br />
+                This tool will output a data table and interactive pie chart displaying the amount of dividends that will be paid annually (per year) for owning a particular portfolio of stocks. There is a limit of 15 stocks per table. In order to save the table the user must register an account. There is a save limit of 5 total tables per account. The saved tables will be found under the “Saved Tables” icon in the side-bar.
+                <br /><br />
+                <b>Ticker: </b>   Enter in a valid ticker symbol. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
+                <br /><br />
+                <b># of Shares: </b> Enter the total number of shares owned for the specified ticker.
+                <br />
+                <br />
+                <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
+                    <a href="/terms" className="terms">
+                        Terms & Condition
+
+                    </a>
+                </p>
+                <br />
+            </div>
+        </div >
     );
 };
 
