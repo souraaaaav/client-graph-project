@@ -16,109 +16,110 @@ const labelYOffset = 50;
 const DoubleLineChart = ({ width, height, stockData, tickerSeries }) => {
 
     return (
-        <XYChart
-            {...chartConfig}
-            width={width}
-            height={height}
+        <div className='chart-wrapper'>
+            <XYChart
+                {...chartConfig}
+                width={width}
+                height={height}
 
-        >
-            <Grid numTicks={10} />
+            >
+                <Grid numTicks={10} />
 
-            <Axis
-                orientation='bottom'
-                numTicks={10}
-                tickFormat={(v) => format(parseISO(v), ' MMM yyyy')}
-                label='Date'
+                <Axis
+                    orientation='bottom'
+                    numTicks={10}
+                    tickFormat={(v) => format(parseISO(v), ' MMM yyyy')}
+                    label='Date'
 
-            />
-            <Axis
-                orientation='left'
-                numTicks={10}
-                tickClassName="test-y"
-                label='Stock Price ($)'
-                labelXOffset={50}
+                />
+                <Axis
+                    orientation='left'
+                    numTicks={10}
+                    tickClassName="test-y"
+                    label='Stock Price ($)'
+                    labelXOffset={50}
 
-            />
+                />
 
-            <LineSeries
-                dataKey='line1'
-                data={stockData}
-                xAccessor={(d) => formatISO(parse(d.x, 'MM/dd/yyyy', new Date()))}
-                yAccessor={(d) => d.y1}
-                stroke="green"
-            />
-            <LineSeries
-                dataKey='line2'
-                data={stockData}
-                xAccessor={(d) => formatISO(parse(d.x, 'MM/dd/yyyy', new Date()))}
-                yAccessor={(d) => d.y2}
-                stroke="red"
-            />
+                <LineSeries
+                    dataKey='line1'
+                    data={stockData}
+                    xAccessor={(d) => formatISO(parse(d.x, 'MM/dd/yyyy', new Date()))}
+                    yAccessor={(d) => d.y1}
+                    stroke="green"
+                />
+                <LineSeries
+                    dataKey='line2'
+                    data={stockData}
+                    xAccessor={(d) => formatISO(parse(d.x, 'MM/dd/yyyy', new Date()))}
+                    yAccessor={(d) => d.y2}
+                    stroke="red"
+                />
 
-            <Tooltip
-                snapTooltipToDatumX
-                snapTooltipToDatumY
-                showVerticalCrosshair
-                showSeriesGlyphs
-                glyphStyle={{
-                    fill: "#008561",
-                    strokeWidth: 0.5
-                }}
-                renderTooltip={({ tooltipData, colorScale }) => (
-                    <div style={{ background: '' }}>
-                        <br />
-                        <div style={{ color: 'black' }}><b>Date: </b>
-                            {format(
-                                parse(
-                                    tooltipData?.nearestDatum?.datum.x,
-                                    'MM/dd/yyyy',
-                                    new Date()
-                                ),
-                                'do MMM yyyy'
-                            )}
-                        </div>
-                        <br />
-                        {tooltipData?.nearestDatum?.datum.y1 !== 0 ?
-                            <div className='tooltip-wrapper'>
-                                <div class="green-circle">
-                                </div>
-                                <div className='tooltip-text-wrapper'>
-                                    <div>
-                                        <span>Ticker : </span>
-                                        <span>{tickerSeries[1]}</span>
-                                    </div>
-                                    <div>
-                                        <span>Investment value : </span>
-                                        <span>${tooltipData?.nearestDatum?.datum.y1.toFixed(2)} </span>
-                                    </div>
-                                </div>
-                            </div> : null}
-                        <br />
-                        {tooltipData?.nearestDatum?.datum.y2 !== 0 ?
-                            <div className='tooltip-wrapper'>
-                                <div class="red-circle">
-                                </div>
-                                <div className='tooltip-text-wrapper'>
-                                    <div>
-                                        <span>Ticker : </span>
-                                        <span>{tickerSeries[2]}</span>
-                                    </div>
-                                    <div>
-                                        <span>Investment value : </span>
-                                        <span>${tooltipData?.nearestDatum?.datum.y2.toFixed(2)}</span>
-                                    </div>
-                                </div>
+                <Tooltip
+                    snapTooltipToDatumX
+                    snapTooltipToDatumY
+                    showVerticalCrosshair
+                    showSeriesGlyphs
+                    glyphStyle={{
+                        fill: "#008561",
+                        strokeWidth: 0.5
+                    }}
+                    renderTooltip={({ tooltipData, colorScale }) => (
+                        <div style={{ background: '' }}>
+                            <br />
+                            <div style={{ color: 'black' }}><b>Date: </b>
+                                {format(
+                                    parse(
+                                        tooltipData?.nearestDatum?.datum.x,
+                                        'MM/dd/yyyy',
+                                        new Date()
+                                    ),
+                                    'do MMM yyyy'
+                                )}
                             </div>
-                            : null
-                        }
+                            <br />
+                            {tooltipData?.nearestDatum?.datum.y1 !== 0 ?
+                                <div className='tooltip-wrapper'>
+                                    <div class="green-circle">
+                                    </div>
+                                    <div className='tooltip-text-wrapper'>
+                                        <div>
+                                            <span>Ticker : </span>
+                                            <span>{tickerSeries[1]}</span>
+                                        </div>
+                                        <div>
+                                            <span>Investment value : </span>
+                                            <span>${tooltipData?.nearestDatum?.datum.y1.toFixed(2)} </span>
+                                        </div>
+                                    </div>
+                                </div> : null}
+                            <br />
+                            {tooltipData?.nearestDatum?.datum.y2 !== 0 ?
+                                <div className='tooltip-wrapper'>
+                                    <div class="red-circle">
+                                    </div>
+                                    <div className='tooltip-text-wrapper'>
+                                        <div>
+                                            <span>Ticker : </span>
+                                            <span>{tickerSeries[2]}</span>
+                                        </div>
+                                        <div>
+                                            <span>Investment value : </span>
+                                            <span>${tooltipData?.nearestDatum?.datum.y2.toFixed(2)}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                : null
+                            }
 
 
-                        <br />
-                    </div>
-                )
-                }
-            />
-            {/* {stockPrices
+                            <br />
+                        </div>
+                    )
+                    }
+                />
+                {/* {stockPrices
       .filter((d) => !!d.events)
       .map((datum, i) => (
         <Annotation
@@ -140,7 +141,22 @@ const DoubleLineChart = ({ width, height, stockData, tickerSeries }) => {
           <AnnotationConnector />
         </Annotation>
       ))} */}
-        </XYChart>
+            </XYChart>
+            <div className="legend-wrapper-outer">
+                <div className='legend-wrapper'>
+                    <div class="green-circle small-legend">
+                    </div>
+                    <span className='legend-text'>{tickerSeries[1]}</span>
+
+                </div>
+                <div className='legend-wrapper'>
+                    <div class="red-circle small-legend">
+                    </div>
+                    <span className='legend-text'>{tickerSeries[2]}</span>
+
+                </div>
+            </div>
+        </div>
     );
 };
 

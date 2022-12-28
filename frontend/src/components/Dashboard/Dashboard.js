@@ -10,7 +10,6 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { companyData } from './CompanyData/CompanyData';
 import './Dashboard.css';
 import DashboardLoader from './DashboardLoader/DashboardLoader';
 import LineChart from './LineChart/LineChart';
@@ -19,6 +18,7 @@ const Dashboard = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [company, setCompany] = useState(null);
+    const [topText, setTopText] = useState(null);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [drip, setDrip] = useState(true);
@@ -66,9 +66,11 @@ const Dashboard = () => {
         const body = JSON.stringify({ 'ticker': company, 'start_date': startDate, 'end_date': endDate, 'drip': drip });
         axios.post('http://localhost:8000/api/stock-ticker-history/', body, config)
             .then(response => {
-                setLoading(false);
                 toast.success("successfully got the data");
-                setData(response.data);
+                setData(response.data.data);
+                setTopText(response.data.top);
+                setLoading(false);
+
             }).catch(err => {
                 setLoading(false);
                 if (err.response.data.unavailable) {
@@ -79,13 +81,7 @@ const Dashboard = () => {
                 console.log(err);
             });
     };
-    const options = companyData.map((option) => {
-        const firstLetter = option.label[0].toUpperCase();
-        return {
-            firstLetter: /[0-9]/.test(firstLetter) ? '0-9' : firstLetter,
-            ...option,
-        };
-    });
+
 
 
     return (
@@ -134,7 +130,18 @@ const Dashboard = () => {
                 {
                     loading === true ? <DashboardLoader /> :
                         data !== null ?
-                            <LineChart width={1200} height={600} stockData={data} /> : <p style={{ marginTop: '50px' }}> Select a Ticker</p>
+                            <>
+                                <div style={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column', marginLeft: '9vw' }}>
+
+                                    <br />
+                                    <p>Total return over the specified time period = <b> ${topText[0]} ({topText[1]}%) </b></p>
+                                    <p>Annualized return over the specified time period = <b> {topText[2]}% </b></p>
+                                </div>
+                                <LineChart width={1200} height={600} stockData={data} />
+                            </>
+                            : <p style={{ marginTop: '50px' }}> Select a Ticker</p>
+
+
                 }
             </div>
             <div>

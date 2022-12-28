@@ -1,28 +1,32 @@
 /** @format */
 
 .rechart-tooltip {
-    background-color: rgb(255, 255, 255);
-    border: 1px solid black;
-    border-radius: 8px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    font-size: 16px;
-    font-weight: 300;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid black;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 16px;
+  font-weight: 300;
 }
 
 .text-title {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 .rechart-tooltip-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-    padding: 5px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+  padding: 5px 15px;
 }
 
 .rechart-tooltip-text-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recharts-legend-wrapper {
+  right: -150px !important;
 }

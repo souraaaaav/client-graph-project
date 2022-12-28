@@ -1,35 +1,57 @@
 /** @format */
 
 .visx-tooltip {
-    z-index: 5;
+  z-index: 5;
+}
+
+.chart-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .tooltip-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-content: center;
-    gap: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  gap: 15px;
 }
 
 .tooltip-text-wrapper {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .green-circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1px solid;
-    background-color: green;
-    opacity: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid;
+  background-color: green;
+  opacity: 1;
 }
 
 .red-circle {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 1px solid;
-    background-color: red;
-    opacity: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid;
+  background-color: red;
+  opacity: 1;
+}
+
+.legend-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+}
+
+.legend-wrapper-outer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

@@ -88,7 +88,7 @@ const InvestmentGrowthChart = ({ data }) => {
 
 
         <BarChart
-            width={1200}
+            width={1100}
             height={600}
             data={data}
             margin={{
@@ -102,7 +102,7 @@ const InvestmentGrowthChart = ({ data }) => {
             <XAxis dataKey="year" />
             <YAxis />
             <Tooltip content={<CustomTooltip />} />
-            <Legend />
+            <Legend layout="vetical" verticalAlign="middle" align="right" style={{ right: '-150px' }} />
             <Bar name='Initial Investment' dataKey="investment" stackId="a" fill="blue" />
             <Bar name="Total Contribution" dataKey="tContrib" stackId="a" fill="red" />
             <Bar name='Total Return' dataKey="return" stackId="a" fill="lightgreen" />

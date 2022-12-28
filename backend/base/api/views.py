@@ -188,13 +188,16 @@ class stock_ticker_price_history(generics.GenericAPIView):
                     lambda x: round(((x / start_price) - 1) * 100, 2))
                 price_data["Return"] = price_data["Adj Close"].apply(
                     lambda x: round(x - start_price, 2))
+                top_list = [price_data.iloc[-1]["Return"],
+                            price_data.iloc[-1]["% Change"], round(
+                    annual_return * 100, 2)]
                 final_list = []
                 for i in range(0, len(price_data)):
 
                     final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
                         "%m/%d/%Y")), 'y': price_data["Adj Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
 
-                return Response(final_list, status=status.HTTP_200_OK)
+                return Response({'data': final_list, 'top': top_list}, status=status.HTTP_200_OK)
             else:
                 price_data = yf.download(
                     ticker, start_date, end_date).reset_index()
@@ -213,14 +216,16 @@ class stock_ticker_price_history(generics.GenericAPIView):
                     lambda x: round(((x / start_price) - 1) * 100, 2))
                 price_data["Return"] = price_data["Close"].apply(
                     lambda x: round(x - start_price, 2))
-
+                top_list = [price_data.iloc[-1]["Return"],
+                            price_data.iloc[-1]["% Change"], round(
+                    annual_return * 100, 2)]
                 final_list = []
                 for i in range(0, len(price_data)):
 
                     final_list.append({'x': str(dt.datetime.strptime(str(price_data["Date"][i].date()), "%Y-%m-%d").strftime(
                         "%m/%d/%Y")), 'y': price_data["Close"][i], 'return': price_data["Return"][i], 'change': price_data["% Change"][i]})
 
-                return Response(final_list, status=status.HTTP_200_OK)
+                return Response({'data': final_list, 'top': top_list}, status=status.HTTP_200_OK)
         except:
             print('error')
             return Response({'unavailable': True}, status=status.HTTP_400_BAD_REQUEST)
@@ -254,7 +259,7 @@ class annual_portfolio(generics.GenericAPIView):
 
             print(1)
             div_df = pd.DataFrame(div_list, columns=[
-                                  "Ticker", "Price", "Div. Yield (%)", "Annual Div. Per Share ($)", "Total Shares", "Annual Total Dividend ($)"])
+                "Ticker", "Price", "Div. Yield (%)", "Annual Div. Per Share ($)", "Total Shares", "Annual Total Dividend ($)"])
             div_df["Annual Div. Per Share ($)"] = div_df["Annual Div. Per Share ($)"].fillna(
                 0)
             div_df["Annual Div. Per Share ($)"] = np.array(
