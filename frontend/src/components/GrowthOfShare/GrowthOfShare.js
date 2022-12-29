@@ -23,7 +23,7 @@ const GrowthOfShare = () => {
 
     const handleSearch = () => {
         if (year === null || annualDiv === null || growthRate === null || divYeild === null || iniPrice === null || iniShare === null) {
-            toast.warning('please fill all the value');
+            toast.warning('Please fill all the values.');
             return;
         }
 
@@ -33,11 +33,11 @@ const GrowthOfShare = () => {
         }
 
         if (iniPrice > 1000) {
-            toast.warning("initial price can't be greater than 1000$");
+            toast.warning("The initial price can't be greater than $1000.");
             return;
         }
         if (iniShare > 1000) {
-            toast.warning("number of shares can't be greater than 1000");
+            toast.warning("The number of shares can't be greater than 1000.");
             return;
         }
         if (growthRate > 0.2) {
@@ -45,11 +45,11 @@ const GrowthOfShare = () => {
             return;
         }
         if (divYeild > 0.25) {
-            toast.warning("please select div yield from 0.00-0.25");
+            toast.warning("Please select div yield from 0.00-0.25");
             return;
         }
         if (annualDiv > 0.25) {
-            toast.warning("please select annual div growth rate from 0.00-0.25");
+            toast.warning("Please select annual div growth rate from 0.00-0.25");
             return;
         }
         setLoading(true);
@@ -65,13 +65,13 @@ const GrowthOfShare = () => {
         axios.post('http://localhost:8000/api/growth-of-share/', body, config)
             .then(response => {
                 setLoading(false);
-                toast.success("successfully got the data");
+                toast.success("Successfully got the data.");
                 console.log(response.data);
                 setData(response.data);
 
             }).catch(err => {
                 setLoading(false);
-                toast.error("something went wrong");
+                toast.error("Something went wrong.");
 
             });
     };
@@ -134,12 +134,10 @@ const GrowthOfShare = () => {
                 <br /><br /><b>Div. Yield: </b>
                 A dividend yield is a financial ratio that shows how much a company pays out in dividends each year relative to its share price. It is calculated by dividing the annual dividend per share by the price per share. For example, if a company has a dividend yield of 0.03 (3%) and the current price per share is $50, it means that the company is paying out $1.50 in dividends per year for each share that is owned. The value must be between 0.00-0.25
                 <br /><br /><b>
-                    Annual Div. Growth Rate:
-                </b>
+                    Annual Div. Growth Rate: </b>
                 The annual dividend growth rate is the percentage by which a company's dividends per share (DPS) increase from one year to the next. It is calculated by dividing the change in DPS by the previous year's DPS and expressing the result as a percentage. For example, if a company paid a dividend of $1 per share in 2020 and $1.10 per share in 2021, its annual dividend growth rate would be: (1.10 - 1) / 1 = 0.10. Annual dividend growth rate = 10%.
                 <br /><br /><b>
-                    # of Years:
-                </b>
+                    # of Years: </b>
                 The number of years the investment will have to grow.
                 <br />
                 <br />

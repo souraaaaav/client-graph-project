@@ -123,14 +123,14 @@ const PieChartDetailDashboard = () => {
         let arr = [...tickerList];
         arr.splice(ind, 1);
 
-        handleGraph(arr, true);
+        handleGraph(arr, false);
 
     };
 
-    const handleGraph = (arr, check = false) => {
+    const handleGraph = (arr, check = true) => {
         if (check === true) {
             if (company === null || share === null) {
-                toast.warning('please fill all the value');
+                toast.warning('Please fill all the values.');
                 return;
             }
         }
