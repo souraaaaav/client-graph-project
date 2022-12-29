@@ -170,7 +170,7 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
             <footer style={{ height: '80px', textAlign: 'center' }}>
                 <hr />
                 <hr />
-                <p style={{ "position": "relative", "top": "50%", "WebkitTransform": "translateY(-50%)", "MsTransform": "translateY(-50%)", "transform": "translateY(-50%)" }}>All rights reserved by <b>&copy;CR3W</b></p>
+                <p style={{ "position": "relative", "top": "50%", "WebkitTransform": "translateY(-50%)", "MsTransform": "translateY(-50%)", "transform": "translateY(-50%)" }}>All rights reserved by <b>&copy;Market Supervisor</b></p>
                 {/* <p style={{ height: '10px' }}></p> */}
             </footer>
         </div >
