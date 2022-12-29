@@ -120,7 +120,7 @@ const MultipleLineDashboard = () => {
                             null
                 }
             </div>
-            <div>
+            <div className='info-text'>
                 <br />
                 <br />
                 <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>

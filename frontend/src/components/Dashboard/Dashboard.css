@@ -26,3 +26,11 @@
 .dashboard-button:hover {
     background-color: #212121 !important;
 }
+
+@media (max-width: 450px) {
+    .search-component {
+        width: 300px;
+        flex-direction: column;
+        gap: 15px;
+    }
+}

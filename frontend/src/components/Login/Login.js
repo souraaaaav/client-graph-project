@@ -34,7 +34,7 @@ const Login = ({ login, isAuthenticated, isLoading, token, user }) => {
             <React.Fragment>
                 <p style={{ height: '20px' }}></p>
 
-                <div className="form-container" style={{ height: '620px' }}>
+                <div className="form-container">
                     <div className="avatar"></div>
                     <div className="title">Stock Market Supervisor</div>
                     <div className="sub-title">CR3W</div>

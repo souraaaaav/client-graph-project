@@ -86,3 +86,11 @@ td {
 .remove-row:hover {
     color: red;
 }
+@media (max-width: 450px) {
+.saved-div{
+    width: 300px;
+}
+.content-table{
+    min-width:280px
+}
+}

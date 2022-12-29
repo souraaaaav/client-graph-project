@@ -81,7 +81,7 @@ const GrowthOfShare = () => {
         <div className="App">
             <h2 style={{ marginTop: 10, marginBottom: 20, textAlign: 'center', fontWeight: 400 }}>Periodic Contribution Investment Growth</h2>
             <div className='search-component investment-wrapper'>
-                <div className='investment-outer-wrapper' style={{ width: '720px' }}>
+                <div className='investment-outer-wrapper'>
                     <div className='investment-inner-wrapper'>
 
                         <TextField id="outlined-basic" label="# of Shares" variant="outlined" value={iniShare} onChange={(e) => {
@@ -112,13 +112,15 @@ const GrowthOfShare = () => {
                 <Button variant="contained" className='dashboard-button' onClick={handleSearch}>Create Table</Button>
             </div>
             <div className='chart-wrapper'>
+                <div className='mui-wrapper'>
                 {
                     loading === true ? <DashboardLoader /> :
                         data !== null ? <GrowthOfShareTable data={data} /> :
                             null
                 }
+                </div>
             </div>
-            <div>
+            <div className='info-text'>
                 <br />
                 <br />
                 <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>

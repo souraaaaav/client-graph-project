@@ -137,14 +137,16 @@ const Dashboard = () => {
                                     <p>Total return over the specified time period = <b> ${topText[0]} ({topText[1]}%) </b></p>
                                     <p>Annualized return over the specified time period = <b> {topText[2]}% </b></p>
                                 </div>
-                                <LineChart width={1200} height={600} stockData={data} />
+                                <LineChart width={1000} height={600} stockData={data} />
+
+                                {/* <LineChart width={1200} height={600} stockData={data} /> */}
                             </>
                             : <p style={{ marginTop: '50px' }}> Select a Ticker</p>
 
 
                 }
             </div>
-            <div>
+            <div className='info-text'>
                 <br />
                 <br />
                 <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>

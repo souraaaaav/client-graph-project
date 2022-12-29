@@ -33,7 +33,7 @@ const Registration = ({ create_student_user, isAuthenticated, isLoading, token, 
         return (
             <React.Fragment>
                 <p style={{ height: '20px' }}></p>
-                <div class="form-container">
+                <div class="form-container registration-container">
 
                     <div class="title">Stock Market Supervisor</div>
 

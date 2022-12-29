@@ -204,7 +204,7 @@ const PieChartDashboard = () => {
             </Modal>
 
             <div className='inner-pie-wrapper'>
-                <div>
+                <div className="table-wrapper">
 
                     {total && <p>Total amount of dividends collected per year: {loading ? <DashboardLoader /> : <b>${total}</b>}</p>}
                     <table className='content-table'>
@@ -239,7 +239,7 @@ const PieChartDashboard = () => {
                     </table>
                 </div>
                 {
-                    loading === true ? <DashboardLoader /> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ? <div>
+                    loading === true ? <DashboardLoader /> : (labelList && seriesList && labelList.length > 0 && seriesList.length > 0) ? <div className="pie-wrapper">
                         <Chart options={config.options} series={config.series} type="pie" width="380" />
 
                     </div> : null
@@ -247,7 +247,7 @@ const PieChartDashboard = () => {
                 }
 
             </div>
-            <div>
+            <div className='info-text'>
                 <br />
                 <br />
                 <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>

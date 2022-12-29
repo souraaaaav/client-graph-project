@@ -43,6 +43,7 @@ const LineChart = ({ width, height, stockData }) => {
                 xAccessor={(d) => formatISO(parse(d.x, 'MM/dd/yyyy', new Date()))}
                 yAccessor={(d) => d.y}
                 stroke="#6873FA"
+
             />
 
             <Tooltip
@@ -54,7 +55,7 @@ const LineChart = ({ width, height, stockData }) => {
                     fill: "#008561",
                     strokeWidth: 0.5
                 }}
-                renderTooltip={({ tooltipData, colorScale }) => (
+                renderTooltip={({ tooltipData }) => (
                     <div >
                         <br />
                         <div style={{ color: 'black' }}>

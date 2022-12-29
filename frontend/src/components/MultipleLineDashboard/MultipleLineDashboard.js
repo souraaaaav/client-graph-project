@@ -18,6 +18,7 @@ import PentaLineChart from './PentaLineChart/PentaLineChart';
 import QuadLineChart from './QuadLineChart/QuadLineChart';
 import SingleLineChart from './SingleLineChart/SingleLineChart';
 import TripleLineChart from './TripleLineChart/TripleLineChart';
+import ParentSize from '@visx/responsive/lib/components/ParentSize';
 
 const MultipleLineDashboard = () => {
     const [data, setData] = useState(null);
@@ -178,9 +179,11 @@ const MultipleLineDashboard = () => {
                         data !== null && tickerSeries && tickerSeries.length === 2 ?
                             <SingleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
                             data !== null && tickerSeries && tickerSeries.length === 3 ?
-                                <DoubleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
+                              <DoubleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} />:
                                 data !== null && tickerSeries && tickerSeries.length === 4 ?
-                                    <TripleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
+                                    <TripleLineChart width={1200} height={600} stockData={data} 
+                                    
+                            tickerSeries={tickerSeries} /> :
                                     data !== null && tickerSeries && tickerSeries.length === 5 ?
                                         <QuadLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
                                         data !== null && tickerSeries && tickerSeries.length === 6 ?
@@ -189,6 +192,7 @@ const MultipleLineDashboard = () => {
                                             <p style={{ marginTop: '50px' }}> Select a Ticker</p>
                 }
             </div>
+            <div className='info-text'>
             <br />
             <br />
             <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
@@ -211,6 +215,7 @@ const MultipleLineDashboard = () => {
             DRIP stands for “Dividend Reinvestment Plan”. If DRIP is set to True, this will account for any dividends paid and any stock splits in the stock’s price history. If DRIP is set to False, this will NOT account for any dividends paid and stock splits in the stock’s price history.
             <br />
             <br />
+            </div>
             <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                 <a href="/terms" className="terms">
                     Terms & Conditions
