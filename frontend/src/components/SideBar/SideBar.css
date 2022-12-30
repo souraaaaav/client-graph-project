@@ -314,6 +314,10 @@
     margin: 18px;
 }
 
+.header-replace {
+    display: none;
+}
+
 @media (max-width: 450px) {
     .sidebar li .tooltip {
         display: none;
@@ -381,6 +385,7 @@
         overflow-y: hidden;
     }
     .header-replace {
+        display: block;
         background-color: #e6e6e6;
         height: 40px;
         width: 100%;
