@@ -41,6 +41,7 @@ const PieChartDetailDashboard = () => {
     const [tickerList, setTickerList] = useState([]);
     const [graphData, setGraphData] = useState(null);
     const [total, setTotal] = useState(null);
+    const [editableShareArr, setEditableShareArr] = useState(null);
     const [loading, setLoading] = useState(null);
     const [bigLoading, setBigLoading] = useState(true);
     const [labelList, setLabelList] = useState([]);
@@ -76,6 +77,7 @@ const PieChartDetailDashboard = () => {
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
+                setEditableShareArr(shareArr);
                 console.log('tickerupdateee'.tickerUpdate);
                 setTickerList(tickerUpdate);
                 setTotal(response.data.total);
@@ -127,6 +129,20 @@ const PieChartDetailDashboard = () => {
 
     };
 
+    const handlePreviousEdit = (val, ind) => {
+
+        let arr = [...editableShareArr];
+        arr[ind] = val;
+        setEditableShareArr(arr);
+        // handleGraph(arr, false);
+
+    };
+    const handleEdit = (ind) => {
+        let mainArr = [...tickerList];
+        let arr = [...editableShareArr];
+        mainArr[ind].share = arr[ind];
+        handleGraph(mainArr, false);
+    };
     const handleGraph = (arr, check = true) => {
         if (check === true) {
             if (company === null || share === null) {
@@ -162,6 +178,8 @@ const PieChartDetailDashboard = () => {
                 setLabelList(labelArr);
                 setSeriesList(seriesArr);
                 setShareList(shareArr);
+                setEditableShareArr(shareArr);
+
                 setTickerList(arr);
                 setTotal(response.data.total);
 
@@ -308,9 +326,12 @@ const PieChartDetailDashboard = () => {
                                                 <td>{el[1] ? el[1].toFixed(2) : 'none'}</td>
                                                 <td>{el[5] ? el[5].toFixed(2) : 'none'}</td>
                                                 <td>{el[2] ? el[2].toFixed(2) : 'none'}</td>
-                                                <td>{el[3] ? el[3] : 'none'}</td>
+                                                {/* {el[3] ? el[3] : 'none'} */}
+                                                <td><input className='edited-column' type='number' value={parseInt(editableShareArr[ind])} onChange={(e) => handlePreviousEdit(e.target.value, ind)} /></td>
                                                 <td>{el[4] ? el[4].toFixed(2) : 'none'}</td>
-                                                <td onClick={() => handleRemove(ind)}><i class='bx bxs-trash remove-row'></i></td>
+                                                <td><i onClick={() => handleRemove(ind)} class='bx bxs-trash remove-row'></i>
+                                                    <i onClick={() => handleEdit(ind)} class='bx bxs-edit remove-row'></i>
+                                                </td>
                                             </tr>
                                         ))
                                         : <tr><td colSpan="6">Select a Ticker</td></tr>}

@@ -39,13 +39,19 @@ td {
 .content-table thead tr {
     background-color: #646464;
     color: #ffffff;
-    text-align: left;
+    text-align: center;
     font-weight: bold;
 }
 
 .content-table th,
 .content-table td {
     padding: 12px 15px;
+}
+
+.content-table input {
+    width: 40%;
+    border-radius: 4px;
+    text-align: center;
 }
 
 .content-table tbody tr {
@@ -86,11 +92,15 @@ td {
 .remove-row:hover {
     color: red;
 }
+
 @media (max-width: 450px) {
-.saved-div{
-    width: 300px;
-}
-.content-table{
-    min-width:280px
-}
+    .saved-div {
+        width: 300px;
+    }
+    .content-table {
+        min-width: 280px;
+    }
+    .content-table input {
+        width: 80%;
+    }
 }

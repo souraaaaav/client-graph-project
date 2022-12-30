@@ -164,6 +164,14 @@ const SideBar = ({ children, logout, isAuthenticated, isLoading, token, user }) 
                     }
                 </ul>
             </div>
+            <div class="header-replace">
+                <div class="logo-details">
+                    {/* <i class='bx bxl-c-plus-plus icon'></i> */}
+
+                    <i class='bx bx-menu hamburger' id="btn" onClick={menuBtnChange} ></i>
+                    <span> Market Supervisor</span>
+                </div>
+            </div>
             <section class="home-section" onClick={closeModal}>
                 {isLoading ? <HashLoader speedMultiplier={1.5} color={'#262626'} style={{ marginLeft: "50%" }} size={100} /> : children}
             </section>

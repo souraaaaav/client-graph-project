@@ -319,15 +319,18 @@
         display: none;
     }
     .sidebar {
-        width: 50px;
-        padding: 3px 2px;
+        display: none;
+    }
+    .sidebar.open {
+        display: block;
     }
     .sidebar li.profile {
         width: 50px;
     }
     .home-section {
-        margin-left: 60px;
-        margin-right: 7px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 45px;
     }
     .form-container {
         width: 300px;
@@ -343,7 +346,6 @@
         font-size: 14px;
     }
     footer {
-        margin-left: 50px;
         margin-top: 10px;
     }
     .form-container.registration-container {
@@ -353,29 +355,44 @@
         width: 70vw;
         left: auto;
     }
+    .Toastify__toast-container--top-right {
+        top: 50px;
+    }
     .info-text {
         text-align: justify;
+        font-size: 10px;
     }
-    .Linechart-wrapper{
-        overflow-x:scroll
+    .Linechart-wrapper {
+        overflow-x: scroll;
     }
-    
-   
- 
-    .investment-inner-wrapper{
-        flex-direction:column
+    .investment-inner-wrapper {
+        flex-direction: column;
     }
     .search-component {
         width: 300px;
         flex-direction: column;
         gap: 15px;
     }
-    .table-wrapper{
-
-    overflow-x:scroll
+    .table-wrapper {
+        overflow-x: scroll;
     }
-    .pie-wrapper{
-        overflow-x:scroll;
-        overflow-y:hidden
+    .pie-wrapper {
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+    .header-replace {
+        background-color: #e6e6e6;
+        height: 40px;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 5;
+    }
+    .hamburger {
+        font-size: 40px;
+    }
+    .logo-details {
+        display: flex;
+        align-items: center;
     }
 }
