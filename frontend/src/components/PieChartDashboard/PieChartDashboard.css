@@ -93,6 +93,16 @@ td {
     color: red;
 }
 
+.edit-row {
+    color: #646464;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.edit-row:hover {
+    color: black;
+}
+
 @media (max-width: 450px) {
     .saved-div {
         width: 300px;

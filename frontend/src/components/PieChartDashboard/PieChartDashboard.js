@@ -140,7 +140,10 @@ const PieChartDashboard = () => {
                 setLoading(false);
                 response.data.overflow ?
                     toast.warn("you have already saved 5 graph ") :
-                    toast.success("successfully Saved the pie chart");
+                    response.data.same ?
+                        toast.warn("you have already saved a graph with this name ")
+                        :
+                        toast.success("successfully Saved the pie chart");
                 console.log(response.data);
             })
             .catch(err => {

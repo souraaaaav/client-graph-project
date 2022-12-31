@@ -604,16 +604,23 @@ def detailPieInfo(request, id):
 
 @ api_view(["POST"])
 def savePieInfo(request):
-    user = User.objects.get(email=request.data['email'])
-    test = PieInfo.objects.filter(user=user)
-    if len(test) >= 5:
-        return Response({'overflow': True}, status=status.HTTP_200_OK)
-    p = PieInfo.objects.create(
-        user=user, name=request.data['name'], dataArr=json.dumps(request.data['dataArr']))
-    print('1')
-    p.save()
-    print('2')
-    return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
+    try:
+        user = User.objects.get(email=request.data['email'])
+        test = PieInfo.objects.filter(user=user)
+        if len(test) >= 5:
+            return Response({'overflow': True}, status=status.HTTP_200_OK)
+        if (PieInfo.objects.filter(user=user, name=request.data['name']).exists()):
+            return Response({'same': True}, status=status.HTTP_200_OK)
+        print('1 save')
+
+        p = PieInfo.objects.create(
+            user=user, name=request.data['name'], dataArr=json.dumps(request.data['dataArr']))
+        print('1 save')
+        p.save()
+        print('2')
+        return Response({'success': 'perfect'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'same': True}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @ api_view(["POST"])

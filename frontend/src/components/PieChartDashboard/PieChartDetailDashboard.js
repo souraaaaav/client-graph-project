@@ -330,9 +330,10 @@ const PieChartDetailDashboard = () => {
                                                 <td><input className='edited-column' type='number' value={parseInt(editableShareArr[ind])} onChange={(e) => handlePreviousEdit(e.target.value, ind)} /></td>
                                                 <td>{el[4] ? el[4].toFixed(2) : 'none'}</td>
                                                 <td><i onClick={() => handleRemove(ind)} class='bx bxs-trash remove-row'></i>
-                                                    <i onClick={() => handleEdit(ind)} class='bx bxs-edit remove-row'></i>
+                                                    <i onClick={() => handleEdit(ind)} class='bx bx-refresh edit-row'></i>
                                                 </td>
                                             </tr>
+
                                         ))
                                         : <tr><td colSpan="6">Select a Ticker</td></tr>}
                                 </tbody>
