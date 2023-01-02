@@ -27,20 +27,38 @@
 
 @media (max-width: 450px) {
     .investment-outer-wrapper {
-        width:270px
+        width: 270px;
     }
     .search-component.investment-wrapper {
         flex-direction: column;
         width: 300px;
     }
-    .stack-chart-wrapper{
+    .stack-chart-wrapper {
         overflow-x: scroll;
         width: 300px;
         overflow-y: hidden;
-       
     }
-    .mui-wrapper{
+    .mui-wrapper {
         width: 300px;
+        overflow-x: scroll;
+    }
+}
+
+@media (max-width: 850px) {
+    .investment-outer-wrapper {
+        width: 350px;
+    }
+    .search-component.investment-wrapper {
+        flex-direction: column;
+        width: 500px;
+    }
+    .stack-chart-wrapper {
+        overflow-x: scroll;
+        width: 600px;
+        overflow-y: hidden;
+    }
+    .mui-wrapper {
+        width: 600px;
         overflow-x: scroll;
     }
 }

@@ -401,3 +401,16 @@
         align-items: center;
     }
 }
+
+@media (max-width: 850px) {
+    .Linechart-wrapper {
+        overflow-x: scroll;
+    }
+    .info-text {
+        text-align: justify;
+        font-size: 14px;
+    }
+    .investment-inner-wrapper {
+        flex-direction: column;
+    }
+}
