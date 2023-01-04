@@ -120,7 +120,7 @@ class VerifyEmail(generics.GenericAPIView):
             if user.isVerified is False:
                 user.isVerified = True
                 user.save()
-            return redirect("http://localhost:3000/login")
+            return redirect("http://localhost:8000/")
 
         except ExpiredSignatureError:
             return Response({'message': 'Activation Expired'}, status=status.HTTP_400_BAD_REQUEST)

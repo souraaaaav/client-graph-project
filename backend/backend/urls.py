@@ -17,9 +17,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.views.generic import RedirectView
 
-admin.site.site_header = 'NSTU ADPP SUPER ADMIN'
+from . import views
+
+admin.site.site_header = 'STOCK MARKET SUPER ADMIN'
 admin.site.index_title = 'All Data'
 admin.site.site_title = 'HTML title from adminsitration'
 
@@ -27,6 +30,9 @@ admin.site.site_title = 'HTML title from adminsitration'
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("base.api.urls")),
+    path("", views.index, name='index'),
+    re_path(r'^.*/$', RedirectView.as_view(url='/')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

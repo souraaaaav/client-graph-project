@@ -9,10 +9,12 @@ import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import axios from 'axios';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Dashboard.css';
 import DashboardLoader from './DashboardLoader/DashboardLoader';
 import LineChart from './LineChart/LineChart';
+
 
 const Dashboard = () => {
     const [data, setData] = useState(null);
@@ -167,10 +169,10 @@ const Dashboard = () => {
                 <br />
                 <br />
                 <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
-                    <a href="/terms" className="terms">
+                    <Link href="/terms" className="terms">
                         Terms & Conditions
 
-                    </a>
+                    </Link>
                 </p>
                 <br />
             </div>

@@ -61,7 +61,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, 'build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -155,9 +155,11 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_DIR = {
-    os.path.join(BASE_DIR, "public/static")
-}
+STATICFILES_DIRS = [
+    # os.path.join(BASE_DIR, "public/static"),
+    os.path.join(BASE_DIR, "build/static"),
+
+]
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -170,7 +172,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'souravdebnath97@gmail.com'
-EMAIL_HOST_PASSWORD = 'gtgxpeyvlznzqpdu'
+EMAIL_HOST_USER = 'your_email'
+EMAIL_HOST_PASSWORD = 'your_app_password'
 EMAIL_USE_SSL = False
 EMAIL_USE_TLS = True
