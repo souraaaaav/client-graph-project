@@ -19,7 +19,7 @@ const SavedPieDashboard = () => {
         };
         const body = JSON.stringify({ 'email': email });
 
-        axios.post(`http://localhost:8000/api/all-pie-info/`, body, config)
+        axios.post(`http://35.173.177.244:8000/api/all-pie-info/`, body, config)
             .then(res => {
                 console.log(res.data);
                 setPieData(res.data);

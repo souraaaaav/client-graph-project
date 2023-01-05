@@ -62,7 +62,7 @@ const GrowthOfShare = () => {
         };
         const body = JSON.stringify({ 'divYeild': divYeild, 'year': year, 'growthRate': growthRate, 'iniPrice': iniPrice, 'iniShare': iniShare, 'annualDiv': annualDiv });
         console.log(body);
-        axios.post('http://localhost:8000/api/growth-of-share/', body, config)
+        axios.post('http://35.173.177.244:8000/api/growth-of-share/', body, config)
             .then(response => {
                 setLoading(false);
                 toast.success("Successfully got the data.");
@@ -113,11 +113,11 @@ const GrowthOfShare = () => {
             </div>
             <div className='chart-wrapper'>
                 <div className='mui-wrapper'>
-                {
-                    loading === true ? <DashboardLoader /> :
-                        data !== null ? <GrowthOfShareTable data={data} /> :
-                            null
-                }
+                    {
+                        loading === true ? <DashboardLoader /> :
+                            data !== null ? <GrowthOfShareTable data={data} /> :
+                                null
+                    }
                 </div>
             </div>
             <div className='info-text'>

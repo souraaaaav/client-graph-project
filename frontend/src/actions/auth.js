@@ -11,7 +11,7 @@ export const create_student_user = ({ fullname, email, password, password2 }) =>
     };
     const body = JSON.stringify({ fullname, email, password, password2 });
     console.log('inside');
-    axios.post('http://localhost:8000/api/signup/user/', body, config)
+    axios.post('http://35.173.177.244:8000/api/signup/user/', body, config)
         .then(res => {
             dispatch({
                 type: actionTypes.REGISTER_STUDENT_USER_SUCCESS,
@@ -38,7 +38,7 @@ export const forget_password = ({ email }) => (dispatch) => {
         }
     };
     const body = JSON.stringify({ email });
-    axios.post('http://localhost:8000/api/password-change-request/', body, config)
+    axios.post('http://35.173.177.244:8000/api/password-change-request/', body, config)
         .then(response => {
 
             dispatch({
@@ -68,7 +68,7 @@ export const forget_password_confirm = ({ token, password1, password2 }) => (dis
         }
     };
     const body = JSON.stringify({ 'email': userEmail, 'token': token, 'password1': password1, 'password2': password2 });
-    axios.post('http://localhost:8000/api/password-change-confirm/', body, config)
+    axios.post('http://35.173.177.244:8000/api/password-change-confirm/', body, config)
         .then(response => {
             dispatch({
                 type: actionTypes.PASSWORD_CHANGE_CONFIRM_REQUEST_SUCCESS,
@@ -94,7 +94,7 @@ export const login = ({ email, password }) => (dispatch) => {
     };
     const body = JSON.stringify({ email, password });
     console.log(body);
-    axios.post('http://localhost:8000/api/login/', body, config)
+    axios.post('http://35.173.177.244:8000/api/login/', body, config)
         .then(response => {
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS,
@@ -121,7 +121,7 @@ export const check_continuous_auth = () => (dispatch) => {
             'Authorization': `Token ${token}`
         }
     };
-    axios.get('http://localhost:8000/api/checkauth/', config)
+    axios.get('http://35.173.177.244:8000/api/checkauth/', config)
         .then(response => {
             dispatch({
                 type: actionTypes.CONTINUOUS_USER_AUTH_SUCCESS,

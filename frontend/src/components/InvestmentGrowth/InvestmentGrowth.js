@@ -54,7 +54,7 @@ const MultipleLineDashboard = () => {
         };
         const body = JSON.stringify({ 'investment': investment, 'year': year, 'growthRate': growthRate, 'addContrib': addContrib, 'contribRate': contribRate });
         console.log(body);
-        axios.post('http://localhost:8000/api/investment-growth/', body, config)
+        axios.post('http://35.173.177.244:8000/api/investment-growth/', body, config)
             .then(response => {
                 setLoading(false);
                 toast.success("successfully got the data");

@@ -59,7 +59,7 @@ const PieChartDetailDashboard = () => {
         };
         const body = JSON.stringify({ 'email': user.email });
 
-        axios.post(`http://localhost:8000/api/detail-pie-info/${params.id}/`, body, config)
+        axios.post(`http://35.173.177.244:8000/api/detail-pie-info/${params.id}/`, body, config)
             .then(response => {
                 setGraphData(response.data.data);
                 setPieName(response.data.name);
@@ -164,7 +164,7 @@ const PieChartDetailDashboard = () => {
             }
         };
         const body = JSON.stringify({ 'ticker_list': ticker_list, 'share_list': share_list });
-        axios.post('http://localhost:8000/api/annual-portfolio/', body, config)
+        axios.post('http://35.173.177.244:8000/api/annual-portfolio/', body, config)
             .then(response => {
                 setGraphData(response.data.data);
                 let labelArr = [];
@@ -210,7 +210,7 @@ const PieChartDetailDashboard = () => {
         };
         const body = JSON.stringify({ 'email': user.email, 'name': pieName, 'dataArr': [labelList, shareList] });
 
-        axios.post(`http://localhost:8000/api/update-pie/${params.id}/`, body, config)
+        axios.post(`http://35.173.177.244:8000/api/update-pie/${params.id}/`, body, config)
             .then(response => {
                 setLoading(false);
                 toast.success("successfully updated the pie chart");
@@ -234,7 +234,7 @@ const PieChartDetailDashboard = () => {
         };
         const body = JSON.stringify({ 'email': user.email });
 
-        axios.post(`http://localhost:8000/api/delete-pie/${params.id}/`, body, config)
+        axios.post(`http://35.173.177.244:8000/api/delete-pie/${params.id}/`, body, config)
             .then(response => {
                 setBigLoading(false);
                 toast.success("successfully deleted the pie chart");

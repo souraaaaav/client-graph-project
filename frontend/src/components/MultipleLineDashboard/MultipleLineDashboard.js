@@ -84,7 +84,7 @@ const MultipleLineDashboard = () => {
         };
         const body = JSON.stringify({ 'ticker': compArr, 'start_date': startDate, 'end_date': endDate, 'investment': investment, 'drip': drip });
         console.log(body);
-        axios.post('http://localhost:8000/api/stock-ticker-comparison/', body, config)
+        axios.post('http://35.173.177.244:8000/stock-ticker-comparison/', body, config)
             .then(response => {
                 setLoading(false);
                 toast.success("successfully got the data");
@@ -179,11 +179,11 @@ const MultipleLineDashboard = () => {
                         data !== null && tickerSeries && tickerSeries.length === 2 ?
                             <SingleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
                             data !== null && tickerSeries && tickerSeries.length === 3 ?
-                              <DoubleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} />:
+                                <DoubleLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
                                 data !== null && tickerSeries && tickerSeries.length === 4 ?
-                                    <TripleLineChart width={1200} height={600} stockData={data} 
-                                    
-                            tickerSeries={tickerSeries} /> :
+                                    <TripleLineChart width={1200} height={600} stockData={data}
+
+                                        tickerSeries={tickerSeries} /> :
                                     data !== null && tickerSeries && tickerSeries.length === 5 ?
                                         <QuadLineChart width={1200} height={600} stockData={data} tickerSeries={tickerSeries} /> :
                                         data !== null && tickerSeries && tickerSeries.length === 6 ?
@@ -193,28 +193,28 @@ const MultipleLineDashboard = () => {
                 }
             </div>
             <div className='info-text'>
-            <br />
-            <br />
-            <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
-            <br />
-            This tool will output an interactive line graph displaying the hypothetical growth of an investment over a specified period of time for a particular stock(s). Enter up to 5 stocks at a time to compare their performances.
-            <br /><br />
-            <b>Ticker: </b>
-            Enter in a valid ticker symbol. Up to 5 ticker symbols can be entered. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
-            <br /><br />
-            <b>Start Date: </b>
-            Start date of the stock’s price history.
-            <br /><br />
-            <b>End Date: </b>
-            End date of the stock’s price history.
-            <br /><br />
-            <b>Investment ($): </b>
-            Enter the total amount of money invested at the “Start Date”.
-            <br /><br />
-            <b>DRIP: </b>
-            DRIP stands for “Dividend Reinvestment Plan”. If DRIP is set to True, this will account for any dividends paid and any stock splits in the stock’s price history. If DRIP is set to False, this will NOT account for any dividends paid and stock splits in the stock’s price history.
-            <br />
-            <br />
+                <br />
+                <br />
+                <h1 style={{ textDecoration: 'underline' }}>How to Use?</h1>
+                <br />
+                This tool will output an interactive line graph displaying the hypothetical growth of an investment over a specified period of time for a particular stock(s). Enter up to 5 stocks at a time to compare their performances.
+                <br /><br />
+                <b>Ticker: </b>
+                Enter in a valid ticker symbol. Up to 5 ticker symbols can be entered. A ticker symbol is a unique series of letters that represents a publicly traded company's stock on a stock exchange. Some popular ticker symbols include “AAPL” = Apple, “MSFT” = Microsoft, “AMZN” = Amazon, or “TSLA” = Tesla.
+                <br /><br />
+                <b>Start Date: </b>
+                Start date of the stock’s price history.
+                <br /><br />
+                <b>End Date: </b>
+                End date of the stock’s price history.
+                <br /><br />
+                <b>Investment ($): </b>
+                Enter the total amount of money invested at the “Start Date”.
+                <br /><br />
+                <b>DRIP: </b>
+                DRIP stands for “Dividend Reinvestment Plan”. If DRIP is set to True, this will account for any dividends paid and any stock splits in the stock’s price history. If DRIP is set to False, this will NOT account for any dividends paid and stock splits in the stock’s price history.
+                <br />
+                <br />
             </div>
             <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
                 <a href="/terms" className="terms">

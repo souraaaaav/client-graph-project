@@ -86,7 +86,7 @@ const PieChartDashboard = () => {
             }
         };
         const body = JSON.stringify({ 'ticker_list': ticker_list, 'share_list': share_list });
-        axios.post('http://localhost:8000/api/annual-portfolio/', body, config)
+        axios.post('http://35.173.177.244:8000/api/annual-portfolio/', body, config)
             .then(response => {
                 setGraphData(response.data.data);
                 let labelArr = [];
@@ -135,7 +135,7 @@ const PieChartDashboard = () => {
         };
         const body = JSON.stringify({ 'email': user.email, 'name': pieName, 'dataArr': [labelList, shareList] });
 
-        axios.post('http://localhost:8000/api/save-pie/', body, config)
+        axios.post('http://35.173.177.244:8000/api/save-pie/', body, config)
             .then(response => {
                 setLoading(false);
                 response.data.overflow ?

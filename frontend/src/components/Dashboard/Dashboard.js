@@ -66,7 +66,7 @@ const Dashboard = () => {
             }
         };
         const body = JSON.stringify({ 'ticker': company, 'start_date': startDate, 'end_date': endDate, 'drip': drip });
-        axios.post('http://localhost:8000/api/stock-ticker-history/', body, config)
+        axios.post('http://35.173.177.244:8000/api/stock-ticker-history/', body, config)
             .then(response => {
                 toast.success("successfully got the data");
                 setData(response.data.data);
@@ -169,7 +169,7 @@ const Dashboard = () => {
                 <br />
                 <br />
                 <p style={{ textAlign: 'center', textDecoration: 'underline' }} >
-                    <Link href="/terms" className="terms">
+                    <Link to="/terms" className="terms">
                         Terms & Conditions
 
                     </Link>
